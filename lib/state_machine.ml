@@ -90,6 +90,7 @@ class StateMachine:
         will raise an exception if not set when calling start)
     \"\"\"
     def __init__(self, init_state = None):
+        self.init_state = init_state
         self.state = init_state
         self.is_started = False
     

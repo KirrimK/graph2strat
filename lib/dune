@@ -2,7 +2,7 @@
  (name graph2stratlib)
  (public_name graph2strat)
  (wrapped false)
- (libraries dune-build-info))
+ (libraries dune-build-info re2))
 
 (menhir (modules parser))
 (ocamllex lexer)

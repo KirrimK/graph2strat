@@ -39,7 +39,7 @@ En somme, pensez à quand-même vérifier l'output du programme avant de vous en
 ## TODO du projet
 
 - [ ] Prendre en charge le templating
-  - [ ] Zone des déclarations d'états et de transitions
-  - [ ] Zone des définitions de fonctions
+  - [~] Zone des déclarations d'états et de transitions
+  - [~] Zone des définitions de fonctions
 - [ ] Prendre en charge les fichiers en argv
 - [ ] Option d'ajouter un self. à l'attribut statemachine

@@ -34,8 +34,10 @@ class TestTemplating():
     # insertion des placeholders de gardes, actions de transitions
     """HANDLERSPL_BEGIN
 
-    NO_HANDLERPL ma_garde
-    NO_HANDLERPL on_leave
+    IGNORE ma_garde
+    IGNORE on_leave
+    IGNORE on_enter
+    IGNORE guard
     
     HANDLERSPL_END"""
 

@@ -3,7 +3,7 @@
 
 (name graph2strat)
 
-(version 0.1.0)
+(version 0.3.0)
 
 (generate_opam_files true)
 
@@ -25,7 +25,8 @@
  (depends
     ocaml
     dune
-    (menhir (>= 2.1)))
+    (menhir (>= 2.1))
+    (re2 (>= 0.15)))
  (tags
   (lua python dot statemachine)))
 

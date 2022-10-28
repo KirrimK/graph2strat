@@ -1,4 +1,6 @@
 open Compiler;;
+open Converter;;
+open Templating;;
 open State_machine;;
 open Lib_version;;
 
@@ -25,9 +27,12 @@ let () =
     if !input_file = "" then
       (* Reads from stdin *)
       let input = read_stdin "" in
-      let lexbuf = Lexing.from_string (String.concat "" [input; "\n"]) in
+      let (mid, raw) = replace_graph_in_string input converter_graph in
+      (* TODO: Refactor the following part *)
+      let lexbuf = Lexing.from_string (String.concat "" [raw; "\n"]) in
       let stm = Parser.main Lexer.token lexbuf in
-      Printf.printf "#generated using graph2strat v%s\n%s" version (generate_stm_py stm)
+      let (output, _) = replace_plhld_in_string mid (converter_placeholders stm) in
+      Printf.printf "%s" output
     else
       (* Reads from file *)
       let ic = open_in !input_file in
@@ -35,4 +40,4 @@ let () =
       let () = close_in ic in
       let lexbuf = Lexing.from_string input in
       let stm = Parser.main Lexer.token lexbuf in
-      Printf.printf "#generated using graph2strat v%s\n%s" version (generate_stm_py stm)
+      Printf.printf "#generated using graph2strat v%s\n%s" version (graph_to_python 8 stm)
