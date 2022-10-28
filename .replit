@@ -1,6 +1,6 @@
 compile = "dune build"
-run = "dune exec ./main.exe"
-entrypoint = "main.ml"
+run = "dune exec graph2stratcompiler"
+entrypoint = "README.md"
 
 hidden = ["_build/*"]
 
