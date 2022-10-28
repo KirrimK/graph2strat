@@ -1,0 +1,3 @@
+(tests
+ (names convert_test)
+ (libraries graph2strat))

@@ -1,0 +1,32 @@
+(lang dune 2.9)
+(using menhir 2.1)
+
+(name graph2strat)
+
+(version 0.1.0)
+
+(generate_opam_files true)
+
+(source
+ (github KirrimK/graph2strat))
+
+(authors "Rémy B")
+
+(maintainers "Rémy B")
+
+(license MIT)
+
+(documentation https://url/to/documentation)
+
+(package
+ (name graph2strat)
+ (synopsis "A tool designed to make development of statemachines for robot strategy easier")
+ (description "")
+ (depends
+    ocaml
+    dune
+    (menhir (>= 2.1)))
+ (tags
+  (lua python dot statemachine)))
+
+; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project

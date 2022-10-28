@@ -1,0 +1,4 @@
+(executable
+ (public_name graph2stratcompiler)
+ (name main)
+ (libraries graph2strat))
