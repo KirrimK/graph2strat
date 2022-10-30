@@ -3,7 +3,7 @@
 
 (name graph2strat)
 
-(version 0.6.0)
+(version 0.6.1)
 
 (generate_opam_files true)
 
@@ -28,6 +28,6 @@
     (menhir (>= 2.1))
     (re2 (>= 0.15)))
  (tags
-  (lua python dot statemachine)))
+  (python dot statemachine)))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project

@@ -4,6 +4,38 @@ A program used to compile dot graph snippets into state machine directly used wi
 
 Originally a tool for the ENACRobotique robotics club.
 
+[![Run on Repl.it](https://replit.com/badge/github/KirrimK/graph2strat)](https://replit.com/new/github/KirrimK/graph2strat)
+
+## Installation
+
+(Linux only)
+Install ocaml and opam from your package manager.
+Then using opam, configure an additionnal repo:
+```bash
+opam repo add KirrimK https://github.com/KirrimK/opam-repo.git
+```
+Then install the compiler:
+```bash
+opam update
+opam install graph2strat
+```
+
+## Build from source
+
+Clone this repo, then using opam, install the required dependencies: dune, menhir, re2.
+Then run `dune build` to build the compiler.
+Run the build using `dune exec graph2stratcompiler <file>`.
+
+OCaml code documentation is at [https://kirrimk.github.io/graph2strat/](https://kirrimk.github.io/graph2strat/) and can be generated using `dune build @doc`.
+Automated tests (once added) can be run using `dune runtest`.
+
+## Usage
+
+If you installed the compiler using opam, you can run it using `graph2stratcompiler <filename>.py`.
+This will generate a file named `<filename>_gen.py` containing the completed python template in the current folder, and a file in the same folder called `statemachine.py` containing a copy of the custom state machine library to be used with this compiler.
+
+If no file is specified, the compiler will read from stdin and write to stdout. To generate only the library, use the `--lib` flag to get a copy of the library on stdout.
+
 It will take files using this format:
 ```python
 
@@ -95,35 +127,6 @@ class Example:
     # more of your code here
 ```
 
-## Installation
-
-(Linux only)
-Install ocaml and opam from your package manager.
-Then using opam, configure an additionnal repo:
-```bash
-opam repo add KirrimK https://github.com/KirrimK/opam-repo.git
-```
-Then install the compiler:
-```bash
-opam update
-opam install graph2strat
-```
-
-## Build from source
-
-Clone this repo, then using opam, install the required dependencies: dune, menhir, re2.
-Then run `dune build` to build the compiler.
-Run the build using `dune exec graph2stratcompiler <file>`.
-
-OCaml code documentation is at [https://kirrimk.github.io/graph2strat/](https://kirrimk.github.io/graph2strat/) and can be generated using `dune build @doc`.
-Automated tests (once added) can be run using `dune runtest`.
-
-## Usage
-
-If you installed the compiler using opam, you can run it using `graph2stratcompiler <filename>.py`.
-This will generate a file named `<filename>_gen.py` containing the completed python template in the current folder, and a file in the same folder called `statemachine.py` containing a copy of the custom state machine library to be used with this compiler.
-
-If no file is specified, the compiler will read from stdin and write to stdout. To generate only the library, use the `--lib` flag to get a copy of the library on stdout.
 
 ## Bugs/limits:
 
