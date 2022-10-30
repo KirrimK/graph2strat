@@ -1,4 +1,5 @@
 open Compiler;;
+open Utils;;
 
 (* Regex to match start of graph template zone *)
 let reg_graph_templ = Re2.create_exn
@@ -33,6 +34,7 @@ let template_replace = fun input ->
     let input_graph_replaced = Re2.rewrite_exn reg_graph_templ ~template:graph_w_header input in
     (* Replace placeholders in input *)
     let spacing_p_str = String.make spacing_p ' ' in
-    let pl_w_header = spacing_p_str ^ "# [graph2strat generated placeholder handlers]" ^ "\n" ^ placeholders ^ "\n" ^ spacing_p_str ^ "# [end of generated content]" in
+    let pl_w_header = spacing_p_str ^  "# [graph2strat generated placeholder handlers]" ^ "\n" ^ placeholders ^ "\n" ^ spacing_p_str ^ "# [end of generated content]" in
     let input_all_replaced = Re2.rewrite_exn reg_plhld_templ ~template:pl_w_header input_graph_replaced in
-    input_all_replaced;;
+    let file_header = Printf.sprintf "# File generated using graph2strat by KirrimK@ENAC v%s\n# Don't forget to import the contents of statemachine.py: State, Transition, StateMachine\n" version in
+    file_header ^ input_all_replaced;;

@@ -45,7 +45,6 @@ let statement_to_python = fun spacing st ->
       declaration ^ "\n" ^ state_transition_register
 
 let graph_to_python = fun spacing stm ->
-  let () = Printf.printf "%s\n" (stm_str stm) in
   let StateMachine(init, name, st_ls) = stm in
   let spacing_str = String.make spacing ' ' in
   (* Separating states and transitions *)
@@ -78,8 +77,8 @@ let gen_place_holders = fun ignores spacing names_ls ->
   let place_holders = List.filter_map
                         (fun x -> let name, is_guard = x in
                                   if List.mem name ignores then None 
-                                  else Some (Printf.sprintf (if is_guard then "%sdef %s(self):\n%s    return True\n"
-                                                              else "%sdef %s(self):\n%s    pass\n") spacing_str name spacing_str))
+                                  else Some (Printf.sprintf (if is_guard then "%sdef %s(%s):\n%s    return True\n"
+                                                              else "%sdef %s(%s):\n%s    pass\n") spacing_str (if String.sub name 0 5 = "self." then String.sub name 5 (String.length name - 5) else name) (if String.sub name 0 5 = "self." then "self" else "") spacing_str))
                         names_ls in
   String.concat "\n" place_holders;;
 

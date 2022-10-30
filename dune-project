@@ -3,7 +3,7 @@
 
 (name graph2strat)
 
-(version 0.5.0)
+(version 0.6.0)
 
 (generate_opam_files true)
 
@@ -16,7 +16,7 @@
 
 (license MIT)
 
-(documentation https://url/to/documentation)
+(documentation https://kirrimk.github.io/graph2strat/)
 
 (package
  (name graph2strat)

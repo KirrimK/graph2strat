@@ -1,6 +1,7 @@
 open Utils;;
 let lib = Printf.sprintf
 "\"\"\"
+statemachine.py
 Statemachine library by KirrimK@ENAC
 A library bundled with graph2strat outputs
 Generated from version %s
