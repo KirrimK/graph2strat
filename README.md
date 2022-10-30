@@ -4,7 +4,7 @@ A program used to compile dot graph snippets into state machine directly used wi
 
 Originally a tool for the ENACRobotique robotics club.
 
-[![Run on Repl.it](https://replit.com/badge/github/KirrimK/graph2strat)](https://replit.com/new/github/KirrimK/graph2strat)
+[![Run on Repl.it](https://replit.com/badge/github/KirrimK/graph2strat)](https://replit.com/@KirrimK/graph2strat)
 
 ## Installation
 
