@@ -10,7 +10,7 @@ class TestTemplating():
         # insertion des états et transitions
         """STATES_BEGIN
 
-        //init Init
+        #init Init
         digraph test {
             Init [comment="on_enter/on_leave"]
             Outhome [comment="on_enter_/on_leave_"]
@@ -37,7 +37,6 @@ class TestTemplating():
     IGNORE ma_garde
     IGNORE on_leave
     IGNORE on_enter
-    IGNORE guard
     
     HANDLERSPL_END"""
 

@@ -1,5 +1,17 @@
-val reg_graph_templ: Re2.t
-val reg_plhld_templ: Re2.t
+(** Templating module *)
 
-val replace_graph_in_string: string -> (int -> string -> string * Compiler.statemachine) -> (string * Compiler.statemachine)
-val replace_plhld_in_string: string -> (int -> string -> string * string list) -> (string * string list)
+(** Regex for capturing the Graph declaration box *)
+val reg_graph_templ : Re2.t
+
+(** Regex for capturing the Placeholders declaration box *)
+val reg_plhld_templ : Re2.t
+
+(** Regex for capturing the IGNORE <func name> in the template *)
+val ignore_re : Re2.t
+
+(** Extracts the information (graph, placeholders) from the various fields in the template, 
+    processes it into python code, and injects it back
+    @param input the file to be processed
+    @return the file after processing
+*)
+val template_replace : string -> string

@@ -1,4 +1,4 @@
-open Lib_version;;
+open Utils;;
 let lib = Printf.sprintf
 "\"\"\"
 Statemachine library by KirrimK@ENAC

@@ -15,7 +15,7 @@ Lancer le compilateur avec ./_build/default/main.exe suivi du nom de fichier .do
 Les graphes reconnus par le compilateur respectent le subset de la syntaxe DOT suivante:
 
 ```dot
-//init NomEtatInitial
+#init NomEtatInitial
 digraph NomStateMachine {
 NomDeNoeud [comment=""] //(crée un noeud sans callbacks)
 NomDeNoeud [comment="nom_on_enter"] //(crée un noeud avec une callback d'entrée)
