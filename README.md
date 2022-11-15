@@ -34,6 +34,8 @@ Automated tests (once added) can be run using `dune runtest`.
 If you installed the compiler using opam, you can run it using `graph2stratcompiler <filename>.py`.
 This will generate a file named `<filename>_gen.py` containing the completed python template in the current folder, and a file in the same folder called `statemachine.py` containing a copy of the custom state machine library to be used with this compiler.
 
+You can also specify the output file using the '-o' option, and the statemachine library will be added in the same folder.
+
 If no file is specified, the compiler will read from stdin and write to stdout. To generate only the library, use the `--lib` flag to get a copy of the library on stdout.
 
 It will take files using this format:
