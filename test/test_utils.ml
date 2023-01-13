@@ -12,8 +12,11 @@ let generic_fail_test = fun function_to_test test_name input expected_failure_me
   try
     let _ = function_to_test input in
     (test_name, Error("Expected failure, but got success"))
-  with Failure e ->
-    (test_name, Ok(e = expected_failure_message))
+  with e ->
+    let got = (Printexc.to_string e) in
+    (*let () = Printf.printf "  Got:      %s\n" got in
+    let () = Printf.printf "  Expected: %s\n" expected_failure_message in*)
+    (test_name, Ok(got = expected_failure_message))
 
 let run_tests_and_display = fun test_type_str test_list ->
   Printf.printf "Running tests [%s]\n" test_type_str;
