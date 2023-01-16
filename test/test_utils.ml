@@ -4,6 +4,10 @@ let generic_test = fun function_to_test test_name input expected () ->
   try
     let output = (function_to_test ()) input in
     let is_as_expected = (output = expected) in
+    let () = if not is_as_expected then
+              let () = Printf.printf "[%s]:\n>>> Got:\n%s\n" test_name output in
+              let () = Printf.printf ">>> Expected:\n%s\n" expected in
+              () in
     (test_name, Ok(is_as_expected))
   with e ->
     (test_name, Error(Printexc.to_string e))
