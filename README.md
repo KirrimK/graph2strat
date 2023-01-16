@@ -93,13 +93,13 @@ class Example:
         NameOfNodeD = State("NameOfNodeD")
         NameOfNodeC = State("NameOfNodeC")
         NameOfNodeE = State("NameOfNodeE")
-        tr98800212 = Transition(tr98800212, NameOfNodeE, self.on_transition, self.guard)
+        tr98800212 = Transition("tr98800212", NameOfNodeE, self.on_transition, self.guard)
         NameOfNodeC.add_transition(tr98800212)
         NameOfNodeD.add_transition(tr98800212)
-        NameOfNodeGToNameOfNodeH = Transition(NameOfNodeGToNameOfNodeH, NameOfNodeH, self.on_transition_)
+        NameOfNodeGToNameOfNodeH = Transition("NameOfNodeGToNameOfNodeH", NameOfNodeH, self.on_transition_)
         NameOfNodeG.add_transition(NameOfNodeGToNameOfNodeH)
-        NameOfNodeIToNameOfNodeJ = Transition(NameOfNodeIToNameOfNodeJ, NameOfNodeJ)
-        NameOfNodeI.add_transition(NameOfNodeIToNameOfNodeJ)
+        NameOfNodeIToNameOfNodeJ = Transition("NameOfNodeIToNameOfNodeJ", NameOfNodeJ)
+        NameOfNodeI.add_transition("NameOfNodeIToNameOfNodeJ")
         self.NameOfStateMachine = StateMachine(NameOfInitState)
         # [end of generated content]
 
