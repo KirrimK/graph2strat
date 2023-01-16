@@ -37,13 +37,22 @@ let template_replace = fun input ->
     let stm = Parser.main Lexer.token lexbuf in
     let graph = graph_to_python spacing_g stm in
     (* Extract placeholder ignores from input *)
-    let find_p = Re2.find_submatches_exn reg_plhld_templ input in
-    let spacing_p = String.length (Option.get (find_p.(1))) in
-    let raw_p = Option.get (find_p.(2)) in
+    let spacing_p, raw_p, has_pl_field = try
+        let find_p = Re2.find_submatches_exn reg_plhld_templ input in
+        let spacing_p = String.length (Option.get (find_p.(1))) in
+        let raw_p = Option.get (find_p.(2)) in
+        spacing_p, raw_p, true
+    with _ ->
+        0, "", false
+    in
     (* Extract IGNORES from input *)
-    let ignore_list = List.map (fun x -> String.sub x 7 ((String.length x)-7)) (Re2.find_all_exn ignore_re raw_p) in
-    let pl_names = find_functions stm in
-    let placeholders = gen_place_holders ignore_list spacing_p pl_names in
+    let placeholders = if has_pl_field then
+        let ignore_list = try List.map (fun x -> String.sub x 7 ((String.length x)-7)) (Re2.find_all_exn ignore_re raw_p) with _ -> [] in
+        let pl_names = find_functions stm in
+        gen_place_holders ignore_list spacing_p pl_names
+    else 
+        ""
+    in
     (* Replace graph in input *)
     let spacing_g_str = String.make spacing_g ' ' in 
     let graph_w_header = spacing_g_str ^ "# [graph2strat generated states and transitions]" ^ "\n" ^ graph ^ "\n" ^ spacing_g_str ^ "# [end of generated content]" in
@@ -52,7 +61,7 @@ let template_replace = fun input ->
     
     (* Replace placeholders in input *)
     let spacing_p_str = String.make spacing_p ' ' in
-    let pl_w_header = spacing_p_str ^  "# [graph2strat generated placeholder handlers]" ^ "\n" ^ placeholders ^ "\n" ^ spacing_p_str ^ "# [end of generated content]" in
+    let pl_w_header = if not has_pl_field then "" else spacing_p_str ^  "# [graph2strat generated placeholder handlers]" ^ "\n" ^ placeholders ^ "\n" ^ spacing_p_str ^ "# [end of generated content]" in
     let input_all_replaced = Re2.rewrite_exn reg_plhld_templ ~template:pl_w_header input_graph_replaced in
     let file_header = Printf.sprintf "# File generated using graph2strat by KirrimK@ENAC v%s\n# Don't forget to import the contents of statemachine.py: State, Transition, StateMachine\n" version in
     file_header ^ input_all_replaced;;
