@@ -67,7 +67,7 @@ let graph_to_python = fun spacing stm ->
   (* Converting transitions to python *)
   let transitions_python = String.concat "\n" (List.map (statement_to_python spacing) transition_list) in
   (* Creating the state machine *)
-  let state_machine = Printf.sprintf "%sself.%s = StateMachine(%s)" spacing_str
+  let state_machine = Printf.sprintf "%s%s = StateMachine(%s)" spacing_str
                         name (match init with Some x -> x | _ -> "None") in
   (* Adding states to the state machine *)
   states_python ^ "\n" ^ transitions_python ^ "\n" ^ state_machine;;

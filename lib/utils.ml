@@ -13,3 +13,8 @@ let uniq = fun ls ->
               else uniq_loc b (a::acc) in
   uniq_loc ls [];;
 
+let read_file = fun filename ->
+  let ic = open_in filename in
+  let input = really_input_string ic (in_channel_length ic) in
+  let () = close_in ic in
+  input;;

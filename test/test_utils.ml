@@ -1,8 +1,23 @@
 (* Test_utils.ml *)
 
+open Utils;;
+
 let generic_test = fun function_to_test test_name input expected () ->
   try
     let output = (function_to_test ()) input in
+    let is_as_expected = (output = expected) in
+    let () = if not is_as_expected then
+              let () = Printf.printf "[%s]:\n>>> Got:\n%s\n" test_name output in
+              let () = Printf.printf ">>> Expected:\n%s\n" expected in
+              () in
+    (test_name, Ok(is_as_expected))
+  with e ->
+    (test_name, Error(Printexc.to_string e))
+
+let generic_test_files = fun function_to_test test_name input_file expected_file () ->
+  try
+    let output = (function_to_test ()) (read_file input_file) in
+    let expected = (read_file expected_file) in
     let is_as_expected = (output = expected) in
     let () = if not is_as_expected then
               let () = Printf.printf "[%s]:\n>>> Got:\n%s\n" test_name output in
@@ -18,8 +33,8 @@ let generic_fail_test = fun function_to_test test_name input expected_failure_me
     (test_name, Error("Expected failure, but got success"))
   with e ->
     let got = (Printexc.to_string e) in
-    (*let () = Printf.printf "  Got:      %s\n" got in
-    let () = Printf.printf "  Expected: %s\n" expected_failure_message in*)
+    (* let () = Printf.printf "  Got:      %s\n" got in
+    let () = Printf.printf "  Expected: %s\n" expected_failure_message in *)
     (test_name, Ok(got = expected_failure_message))
 
 let run_tests_and_display = fun test_type_str test_list ->

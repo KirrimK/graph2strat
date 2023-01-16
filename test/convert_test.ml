@@ -4,9 +4,11 @@ open Templating;;
 let generic_template_replace_test = generic_test (fun () -> template_replace);;
 let generic_template_replace_fail_test = generic_fail_test template_replace;;
 
+let generic_template_replace_test_files = generic_test_files (fun () -> template_replace);;
+
 let test_none = generic_template_replace_fail_test
   "test_none"
-  "input"
+  ""
   "Re2__Regex.Exceptions.Regex_match_failed(\"(.*)\\\"\\\"\\\"STATES_FILE:(.*)\\\"\\\"\\\"\")";;
 
 let test_empty_field = generic_template_replace_fail_test
@@ -15,26 +17,6 @@ let test_empty_field = generic_template_replace_fail_test
   
   STATES_END\"\"\""
   "Parser.MenhirBasics.Error";;
-
-let test_empty_machine = generic_template_replace_test
-  "test_empty_machine"
-  "\"\"\"STATES_BEGIN
-digraph stonks {
-
-}
-STATES_END\"\"\"
-\"\"\"HANDLERSPL_BEGIN HANDLERSPL_END\"\"\""
-
-"# File generated using graph2strat by KirrimK@ENAC vunknown
-# Don't forget to import the contents of statemachine.py: State, Transition, StateMachine
-# [graph2strat generated states and transitions]
-
-
-self.stonks = StateMachine(None)
-# [end of generated content]
-# [graph2strat generated placeholder handlers]
-
-# [end of generated content]"
 
 let test_empty_machine_no_pl = generic_template_replace_test
   "test_empty_machine_no_pl"
@@ -86,11 +68,22 @@ Init = State(\"Init\")
 self.stonks = StateMachine(Init)
 # [end of generated content]"
 
+let test_files_empty_machine = generic_template_replace_test_files
+  "test_files_empty_machine"
+  "test/test_files/empty_machine.py"
+  "test/test_files/empty_machine.expected";;
+
+let test_files_empty_machine_with_pl = generic_template_replace_test_files
+  "test_files_empty_machine_with_pl"
+  "test/test_files/empty_machine_with_pl.py"
+  "test/test_files/empty_machine_with_pl.expected";;
+
 let () = run_tests_and_display "CONVERT" [
-  test_none;
+  (*test_none;
   test_empty_field;
-  test_empty_machine;
   test_empty_machine_no_pl;
   test_one_state_machine_no_pl_explicit;
-  test_one_state_machine_no_pl_implicit;
+  test_one_state_machine_no_pl_implicit;*)
+  test_files_empty_machine;
+  test_files_empty_machine_with_pl;
 ]

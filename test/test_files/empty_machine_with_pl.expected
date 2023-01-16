@@ -1,0 +1,13 @@
+# File generated using graph2strat by KirrimK@ENAC vunknown
+# Don't forget to import the contents of statemachine.py: State, Transition, StateMachine
+# [graph2strat generated states and transitions]
+
+
+stonks = StateMachine(None)
+# [end of generated content]
+
+bruh = "test"
+
+# [graph2strat generated placeholder handlers]
+
+# [end of generated content]
