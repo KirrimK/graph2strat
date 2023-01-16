@@ -44,9 +44,7 @@ let () =
       let () = Printf.printf "Input file name parsed. Output file name is %s and library will be copied at %s.\n" output_file_str lib_file_str in
       let () = Printf.printf "Reading file...\n" in
       
-      let ic = open_in !input_file in
-      let input = really_input_string ic (in_channel_length ic) in
-      let () = close_in ic in
+      let input = read_file !input_file in
       let () = Printf.printf "Reading file done.\nParsing file...\n" in
       let oc = open_out output_file_str in
       let () = Printf.fprintf oc "%s" (template_replace input) in

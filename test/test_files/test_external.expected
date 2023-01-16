@@ -1,0 +1,56 @@
+# File generated using graph2strat by KirrimK@ENAC vunknown
+# Don't forget to import the contents of statemachine.py: State, Transition, StateMachine
+# importations
+
+class TestTemplating():
+
+    # attributs de classe
+
+    def __init__(self):
+        # initialisation des attributs, super(), etc...
+
+        # insertion des états et transitions
+        # [graph2strat generated states and transitions]
+        Outhome = State("Outhome", on_enter_, on_leave_)
+        Init = State("Init", on_enter, on_leave)
+        End = State("End")
+        InitOuthomeToEnd = Transition("InitOuthomeToEnd", End, on_transition, guard)
+        Init.add_transition(InitOuthomeToEnd)
+        Outhome.add_transition(InitOuthomeToEnd)
+        test = StateMachine(Init)
+        # [end of generated content]
+
+        # autre code d'__init__
+        pass
+
+    # définitions de méthodes
+    
+    # définitions des gardes et transitions à ne pas écraser
+    def ma_garde(self):
+        return False
+
+    def on_leave(self):
+        pass
+
+    # insertion des placeholders de gardes, actions de transitions
+    # [graph2strat generated placeholder handlers]
+    def guard():
+        return True
+
+    def on_transition():
+        pass
+
+    def on_leave_():
+        pass
+
+    def on_enter_():
+        pass
+
+    # [end of generated content]
+
+def main(args=None):
+    strat = TestTemplating()
+    # autre code
+
+if __name__ == '__main__':
+    main()

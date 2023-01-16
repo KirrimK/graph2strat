@@ -55,14 +55,20 @@ self.stonks = StateMachine(Init)
 
 let test_files_empty_machine = generic_template_replace_test_files
   "test_files_empty_machine"
-  "../../../test/test_files/empty_machine.py"
-  "../../../test/test_files/empty_machine.expected";;
+  "empty_machine.py"
+  "empty_machine.expected";;
 
 let test_files_empty_machine_with_pl = generic_template_replace_test_files
   "test_files_empty_machine_with_pl"
-  "../../../test/test_files/empty_machine_with_pl.py"
-  "../../../test/test_files/empty_machine_with_pl.expected";;
+  "empty_machine_with_pl.py"
+  "empty_machine_with_pl.expected";;
 
+let test_external_sample_file = generic_template_replace_test_files
+  "test_external_sample_file"
+  "test_external.py"
+  "test_external.expected";;
+
+Sys.chdir "../../../test/test_files";;
 let () = run_tests_and_display "CONVERT" [
   test_none;
   test_empty_field;
@@ -70,4 +76,5 @@ let () = run_tests_and_display "CONVERT" [
   test_one_state_machine_no_pl_implicit;*)
   test_files_empty_machine;
   test_files_empty_machine_with_pl;
+  test_external_sample_file;
 ];;

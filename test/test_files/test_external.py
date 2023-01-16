@@ -8,7 +8,7 @@ class TestTemplating():
         # initialisation des attributs, super(), etc...
 
         # insertion des états et transitions
-        """STATES_FILE:./test.dot"""
+        """STATES_FILE:./test_external.dot"""
 
         # autre code d'__init__
         pass

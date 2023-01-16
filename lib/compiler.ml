@@ -36,9 +36,9 @@ let statement_to_python = fun spacing st ->
       let full_name = String.concat "To" [(String.concat "" id_ls); idb] in
       let short_name = if String.length full_name > 30 then "tr" ^ (string_of_int (Hashtbl.hash (full_name))) else full_name in
       let declaration = match String.split_on_char '/' guard_and_on_transition with
-        [guard; on_transition] -> Printf.sprintf "%s%s = Transition(%s, %s, %s, %s)" spacing_str short_name short_name idb guard on_transition
-      | [nope] when nope = "" -> Printf.sprintf "%s%s = Transition(%s, %s)" spacing_str short_name short_name idb
-      | [on_transition] -> Printf.sprintf "%s%s = Transition(%s, %s, %s)" spacing_str short_name short_name idb on_transition
+        [guard; on_transition] -> Printf.sprintf "%s%s = Transition(\"%s\", %s, %s, %s)" spacing_str short_name short_name idb guard on_transition
+      | [nope] when nope = "" -> Printf.sprintf "%s%s = Transition(\"%s\", %s)" spacing_str short_name short_name idb
+      | [on_transition] -> Printf.sprintf "%s%s = Transition(\"%s\", %s, %s)" spacing_str short_name short_name idb on_transition
       | _ -> (Printf.sprintf "Invalid Transition: Too much in transition %s" (st_str st)) in
       let state_transition_register = String.concat "\n"
                                         (List.map (fun x -> Printf.sprintf "%s%s.add_transition(%s)" spacing_str x short_name) id_ls) in
