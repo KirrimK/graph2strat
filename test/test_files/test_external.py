@@ -25,9 +25,9 @@ class TestTemplating():
     # insertion des placeholders de gardes, actions de transitions
     """HANDLERSPL_BEGIN
 
-    IGNORE ma_garde
-    IGNORE on_leave
-    IGNORE on_enter
+    IGNORE self.ma_garde
+    IGNORE self.on_leave
+    IGNORE self.on_enter
     
     HANDLERSPL_END"""
 

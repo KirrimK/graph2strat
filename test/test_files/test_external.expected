@@ -11,13 +11,13 @@ class TestTemplating():
 
         # insertion des états et transitions
         # [graph2strat generated states and transitions]
-        Outhome = State("Outhome", on_enter_, on_leave_)
-        Init = State("Init", on_enter, on_leave)
+        Outhome = State("Outhome", self.on_enter_, self.on_leave_)
+        Init = State("Init", self.on_enter, self.on_leave)
         End = State("End")
-        InitOuthomeToEnd = Transition("InitOuthomeToEnd", End, on_transition, guard)
+        InitOuthomeToEnd = Transition("InitOuthomeToEnd", End, self.on_transition, self.guard)
         Init.add_transition(InitOuthomeToEnd)
         Outhome.add_transition(InitOuthomeToEnd)
-        test = StateMachine(Init)
+        self.test = StateMachine(Init)
         # [end of generated content]
 
         # autre code d'__init__
@@ -34,16 +34,16 @@ class TestTemplating():
 
     # insertion des placeholders de gardes, actions de transitions
     # [graph2strat generated placeholder handlers]
-    def guard():
+    def guard(self):
         return True
 
-    def on_transition():
+    def on_transition(self):
         pass
 
-    def on_leave_():
+    def on_leave_(self):
         pass
 
-    def on_enter_():
+    def on_enter_(self):
         pass
 
     # [end of generated content]

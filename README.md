@@ -47,7 +47,7 @@ class Example:
         """STATES_BEGIN
 
         #init NameOfInitState
-        digraph NameOfStateMachine {
+        digraph "self.NameOfStateMachine" {
             NameOfNodeA [comment="self.on_enter/self.on_leave"] //comments allowed at EOL
             NameOfNodeB [comment="self.on_enter_"]
             NameOfNodeF [comment=""]
@@ -129,12 +129,14 @@ class Example:
     # more of your code here
 ```
 
+Remove the self. from the function names in the node methods to declare them as normal functions instead of class methods.
 
 ## Bugs/limits:
 
 For now, the compiler only supports a single state machine per file, and only one placeholder block per file.
-For now, the compiler is not very configurable, and expects the codes to be in a class. More configuration options will be available later
+
 Don't declare nodes with the same name but different caracteristics.
+
 Extensive testing hasn't been done yet, check that the output seems to correspond to the input.
 If a bug is found, please file an issue on the github page.
 

@@ -1,5 +1,5 @@
 """STATES_BEGIN
-digraph stonks {
+digraph "stonks" {
 
 }
 STATES_END"""
