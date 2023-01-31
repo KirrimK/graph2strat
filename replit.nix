@@ -8,5 +8,7 @@
         pkgs.ocamlPackages.findlib
         pkgs.ocamlPackages.dune-build-info
         pkgs.ocamlPackages.re2
+
+        pkgs.python310
     ];
 }

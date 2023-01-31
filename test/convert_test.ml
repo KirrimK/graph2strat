@@ -68,7 +68,7 @@ let test_external_sample_file = generic_template_replace_test_files
   "test_external.py"
   "test_external.expected";;
 
-Sys.chdir "../../../test/test_files";;
+Sys.chdir "../../../test/test_files/convert";;
 let () = run_tests_and_display "CONVERT" [
   test_none;
   test_empty_field;

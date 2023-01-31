@@ -71,6 +71,7 @@ class State:
     def check_transitions(self):
         for transition in self.transitions:
             if transition.guard():
+                self.on_leave()
                 transition.on_transition()
                 return transition.destination
         return None
@@ -107,7 +108,6 @@ class StateMachine:
             new_state = self.state.check_transitions()
             if new_state is not None:
                 if new_state != self.state:
-                    self.state.on_leave()
                     new_state.on_enter()
                 self.state = new_state
     
