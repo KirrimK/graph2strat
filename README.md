@@ -24,15 +24,15 @@ opam install graph2strat
 
 Clone this repo, then using opam, install the required dependencies: dune, menhir, re2.
 Then run `dune build` to build the compiler.
-Run the build using `dune exec graph2stratcompiler <file>`.
+Run the build using `_build/default/bin/main.exe <input_file> [-o <output_file>]`.
 
 OCaml code documentation is at [https://kirrimk.github.io/graph2strat/](https://kirrimk.github.io/graph2strat/) and can be generated using `dune build @doc`.
 Automated tests (once added) can be run using `dune runtest`.
 
 ## Usage
 
-If you installed the compiler using opam, you can run it using `graph2stratcompiler <filename>.py`.
-This will generate a file named `<filename>_gen.py` containing the completed python template in the current folder, and a file in the same folder called `statemachine.py` containing a copy of the custom state machine library to be used with this compiler.
+If you installed the compiler using opam, you can run it using `g2sCompiler <input_file> [-o <output_file>]`.
+This will generate a file named `<input_file>_gen.py` containing the completed python template in the current folder, and a file in the same folder called `statemachine.py` containing a copy of the custom state machine library to be used with this compiler.
 
 You can also specify the output file using the '-o' option, and the statemachine library will be added in the same folder.
 
