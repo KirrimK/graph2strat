@@ -1,5 +1,5 @@
 # File generated using graph2strat by KirrimK@ENAC vunknown
-# Don't forget to import the contents of statemachine.py: State, Transition, StateMachine
+from statemachine import StateMachine, State, Transition
 # importations
 
 class TestTemplating():
