@@ -1,7 +1,0 @@
-# File generated using graph2strat by KirrimK@ENAC vunknown
-from statemachine import StateMachine, State, Transition
-# [graph2strat generated states and transitions]
-
-
-stonks = StateMachine(None)
-# [end of generated content]

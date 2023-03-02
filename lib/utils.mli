@@ -14,3 +14,8 @@ val uniq : 'a list -> 'a list
     @return the content of the file as a string    
 *)
 val read_file : string -> string
+
+(** Reads the content of stdin in a string until EOF
+    @return the content of stdin
+*)
+val read_stdin : unit -> string

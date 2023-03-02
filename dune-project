@@ -26,7 +26,6 @@
     ocaml
     dune
     (menhir (>= 2.1))
-    (re2 (>= 0.15))
     (dune-build-info (>= 3.6)))
  (tags
   (python dot statemachine)))

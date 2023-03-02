@@ -18,3 +18,10 @@ let read_file = fun filename ->
   let input = really_input_string ic (in_channel_length ic) in
   let () = close_in ic in
   input;;
+
+let read_stdin = fun () -> 
+  let rec local = fun acc ->
+    try
+     local (String.concat "" [acc; (really_input_string stdin 1)])
+    with _ -> acc in
+  local "";;

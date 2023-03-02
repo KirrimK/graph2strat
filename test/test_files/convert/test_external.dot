@@ -1,6 +1,0 @@
-#init Init
-digraph "self.test" {
-    Init [comment="self.on_enter/self.on_leave"] //bruh
-    Outhome [comment="self.on_enter_/self.on_leave_"]
-    {Init Outhome} -> End [label="self.on_transition/self.guard"]
-}

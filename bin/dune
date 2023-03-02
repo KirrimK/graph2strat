@@ -1,4 +1,4 @@
 (executable
- (public_name g2sCompiler)
+ (public_name g2s)
  (name main)
  (libraries graph2strat))

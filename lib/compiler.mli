@@ -34,16 +34,10 @@ val statement_to_python : int -> statement -> string
 *)
 val graph_to_python : int -> statemachine -> string
 
-(** Generates python code containing the placeholder functions for the statemachine
-    @param ignore_list the list of function names to ignore
-    @param spacing the spacing to use for the code
-    @param function_list the list of (function name * is_guard)
-    @return the python code for the functions
-*)
-val gen_place_holders : string list -> int -> (string * bool) list -> string
-
 (** Find functions names (enter/leave/on_transition/guard) mentionned in the statemachine 
     @param statemachine the statemachine to parse
     @return a list of (function name * is_guard)
 *)
 val find_functions : statemachine -> (string * bool) list
+
+val include_compile: statemachine -> string
