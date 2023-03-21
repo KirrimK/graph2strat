@@ -22,7 +22,7 @@ opam install graph2strat
 
 ## Build from source
 
-Clone this repo, then using opam, install the required dependencies: dune, menhir, re2.
+Clone this repo, then using opam, install the required dependencies: dune, menhir.
 Then run `dune build` to build the compiler.
 Run the build using `_build/default/bin/main.exe <input_file> [-o <output_file>]`.
 
