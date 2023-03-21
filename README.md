@@ -34,7 +34,7 @@ Automated tests (once added) can be run using `dune runtest`.
 If you installed the compiler using opam, you can run it using `g2s <dot_input_file> [-o <python_output_file>]`.
 This will generate a file named `<dot_input_file>_g2s.py` containing the generated python file in the current folder.
 
-You can also specify the output file using the '-o' option, and the statemachine library will be added in the same folder.
+You can also specify the output file using the '-o' option.
 
 It will take files using this format:
 ```dot
