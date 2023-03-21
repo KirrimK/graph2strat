@@ -39,5 +39,3 @@ val graph_to_python : int -> statemachine -> string
     @return a list of (function name * is_guard)
 *)
 val find_functions : statemachine -> (string * bool) list
-
-val include_compile: statemachine -> string

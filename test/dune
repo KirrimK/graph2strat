@@ -1,3 +1,3 @@
 (tests
- (names empty_test)
+ (names toggle)
  (libraries graph2strat))

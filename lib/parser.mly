@@ -28,10 +28,10 @@
 %%
 
 main:
-  DIGRAPH name = IDENTIFIER LCBR st_ls = statement_list RCBR EOF {StateMachine(None, name, st_ls)}
-| DIGRAPH name = IDENTIFIER LCBR RCBR EOF {StateMachine(None, name, [])}
-| INIT init = IDENTIFIER DIGRAPH name = IDENTIFIER LCBR st_ls = statement_list RCBR EOF {StateMachine((Some init), name, st_ls)}
-| INIT init = IDENTIFIER DIGRAPH name = IDENTIFIER LCBR RCBR EOF {StateMachine((Some init), name, [])}
+  DIGRAPH name = IDENTIFIER LCBR st_ls = statement_list RCBR EOF {StateMachine(None, "stm_"^name, st_ls)}
+| DIGRAPH name = IDENTIFIER LCBR RCBR EOF {StateMachine(None, "stm_"^name, [])}
+| INIT init = IDENTIFIER DIGRAPH name = IDENTIFIER LCBR st_ls = statement_list RCBR EOF {StateMachine((Some init), "stm_"^name, st_ls)}
+| INIT init = IDENTIFIER DIGRAPH name = IDENTIFIER LCBR RCBR EOF {StateMachine((Some init), "stm_"^name, [])}
 
 statement_list:
   st = statement {[st]}

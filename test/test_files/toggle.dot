@@ -1,0 +1,8 @@
+// Graph2strat test - Toggle
+// A simple toggle statemachine, doesn't do anything except toggle between two states
+
+#init Init //the initial state is declared with the #init keyword
+digraph Toggle {
+    Init -> Toggle [label=""] // states are declared implicitly, and don't have on_enters / on_leaves
+    Toggle -> Init [label=""] // the transitions don't have guards nor actions either
+}

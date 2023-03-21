@@ -1,0 +1,8 @@
+// comments are allowed like this
+
+#init NameOfInitState //the initial state is declared with the #init keyword
+digraph STM_NAME { // the graph name is used as the name of the state machine (must start by a letter)
+    NameOfState [comment="on_enter/on_leave"] // This is a node, the on_enter and on_leave methods are declared in the comment
+    NameOfInitState -> NameOfState [label="guard/on_transition"] // This is a transition between states, the guard and on_transition methods are declared in the label
+    //comment
+}

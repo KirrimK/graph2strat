@@ -1,11 +1,5 @@
-open Utils;;
-let lib = Printf.sprintf
-"\"\"\"
-statemachine.py
-Statemachine library by KirrimK@ENAC
-A library bundled with graph2strat outputs
-Generated from version %s
-\"\"\"
+let lib =
+"# Statemachine library preincluded in G2S file
 class Transition:
     \"\"\"
     Transition(name: str, destination: State[, on_transition: function[, guard: function ]]) -> Transition
@@ -112,5 +106,4 @@ class StateMachine:
                 self.state = new_state
     
     def __str__(self):
-        return f\"StateMachine({str(self.state)})\"
-" version;;
+        return f\"StateMachine({str(self.state)})\""
