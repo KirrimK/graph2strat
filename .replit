@@ -1,5 +1,5 @@
 compile = "dune build"
-run = "dune exec graph2stratcompiler"
+run = "dune exec g2s"
 entrypoint = "README.md"
 
 hidden = ["_build/*"]
