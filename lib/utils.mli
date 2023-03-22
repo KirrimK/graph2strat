@@ -19,3 +19,12 @@ val read_file : string -> string
     @return the content of stdin
 *)
 val read_stdin : unit -> string
+
+(** Replaces the extension of a file name with a new one, and appends a suffix to the filename
+    Example: path_add_name_suffix_change_extension "_suffix" "new_ext" "a.out" -> "a_suffix.new_ext"
+    @param suffix the suffix to append to the filename
+    @param new_ext the new extension to use
+    @param path the path to the file
+    @return the new path
+*)
+val path_add_name_suffix_change_extension : string -> string -> string -> string
