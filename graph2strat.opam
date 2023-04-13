@@ -15,7 +15,7 @@ depends: [
   "ocaml"
   "dune" {>= "2.9"}
   "menhir" {>= "2.1"}
-  "dune-build-info" {>= "3.6"}
+  "dune-build-info" {>= "3.5"}
   "odoc" {with-doc}
 ]
 build: [
