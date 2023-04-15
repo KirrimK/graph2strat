@@ -140,13 +140,13 @@ NameOfState [comment=""] // declares a state named NameOfState that doesn't do a
 
 Transitions are declared using the following syntax:
 ```dot
-NameOfInitState -> NameOfState [label="guard/on_transition"] // declares a transition from NameOfInitState to NameOfState, with guard and on_transition methods
+NameOfInitState -> NameOfState [label="on_transition/guard"] // declares a transition from NameOfInitState to NameOfState, with guard and on_transition methods
 
 NameOfInitState -> NameOfState [label="on_transition"] // declares a transition from NameOfInitState to NameOfState, with only a transition action
 
 NameOfInitState -> NameOfState [label=""] // declares a transition from NameOfInitState to NameOfState that doesn't do anything
 
-{StateA StateB StateC ...} -> NameOfState [label="guard/on_transition"] // declares a transition from multiple states to NameOfState, with guard and on_transition methods
+{StateA StateB StateC ...} -> NameOfState [label="on_transition/guard"] // declares a transition from multiple states to NameOfState, with guard and on_transition methods
 
 {StateA StateB StateC ...} -> NameOfState [label="on_transition"] // declares a transition from multiple states to NameOfState, with only a transition action
 
