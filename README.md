@@ -92,9 +92,9 @@ NameOfState [comment="type:function_name;..."] // explicitely declares a state
 
 Here are examples of valid callbacks to specify in the comment field:
 
-`enter:function_name`: the function `function_name` will be called when entering the state
-`leave:function_name`: the function `function_name` will be called when leaving the state
-`loop:function_name`: the function `function_name` will be called repeatedly while in the state and at least once
+- `enter:function_name`: the function `function_name` will be called when entering the state
+- `leave:function_name`: the function `function_name` will be called when leaving the state
+- `loop:function_name`: the function `function_name` will be called repeatedly while in the state and at least once
 
 Combine all those by separating them with a semicolon, in any order:
 `enter:function_name;leave:function_name;loop:function_name`
