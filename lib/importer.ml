@@ -22,7 +22,7 @@ class G2S:
 %s
 
     def __str__(self):
-        return \"G2S (\" +str(self.name) + \") machine, internals: \" + str(self.%s)
+        return \"G2S (\" +str(self.name) + \") machine, started = \"+ str(self.started)+ \", internals: \" + str(self.%s)
 
     def start(self):
         if self.started:
@@ -33,10 +33,10 @@ class G2S:
         if self.debug:
             print(\"Started running G2S (\", self.name ,\") machine, state is\", self.%s.state)
     
-    def check_transitions(self):
+    def step(self):
         if self.debug:
-            print(\">> Checking transitions, state is\", self.%s.state)
-        self.%s.check_transitions()
+            print(\">> Stepping, state is\", self.%s.state)
+        self.%s.step()
         if self.debug:
-            print(\"<< Transitions checked, state is\", self.%s.state)
+            print(\"<< Stepped, state is\", self.%s.state)
 " version lib name graph_py_instrs name name name name name name

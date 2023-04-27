@@ -2,35 +2,26 @@ let lib =
 "# Statemachine library preincluded in G2S file
 class Transition:
     \"\"\"
-    Transition(name: str, destination: State[, action: function[, guard: function ]]) -> Transition
+    Transition(name: str, destination: State[, guard: function ]) -> Transition
 
     Create a transition to a State.
     Constructor arguments:
     - name: the name of the transition
     - destination: the destination State
-    - action: a function that will be called when the transition is taken.
-        (action -> None, by default: does nothing)
-    - guard: a function that will be called to check if the transition can be taken.
+    - guard: a function that will be called to check if the transition can be taken (True to take, False to ignore).
         (guard -> bool, by default: always returns True)
     \"\"\"
-    def nothing(self):
-        print(f\"{self.name}: nothing\")
     def accept_by_default(self):
         print(f\"{self.name}: accept_by_default\")
         return True
 
-    def __init__(self, name, destination, action = None, guard = None):
+    def __init__(self, name, destination, guard = None):
         self.name = name
         self.destination = destination
         if guard is None:
             self.guard = self.accept_by_default
         else:
             self.guard = guard
-
-        if action is None:
-            self.action = self.nothing
-        else:
-            self.action = action
 
     def __str__(self):
         return f\"Transition({self.name})\"
@@ -43,17 +34,20 @@ class State:
     Constructor arguments:
     - name: the name of the state
     - on_enter: a function that will be called when the state is entered.
+        param: name_previous_state: string
         (on_enter -> None, by default: does nothing)
+        (on G2S start, on_enter will be called with name_previous_state = \"G2SSTART\")
     - on_leave: a function that will be called when the state is left.
+        param: name_next_state: string
         (on_leave -> None, by default: does nothing)
     - on_loop: a function that will be called repeatedly until the state is left.
         (on_loop -> None, by default: does nothing)
     - transitions: a list of Transitions that can be taken from this state.
     \"\"\"
-    def on_enter_default(self):
-        print(f\"{self.name}: on_enter_default\")
-    def on_leave_default(self):
-        print(f\"{self.name}: on_leave_default\")
+    def on_enter_default(self, name_previous_state):
+        print(f\"{self.name}: on_enter_default from\", name_previous_state)
+    def on_leave_default(self, name_next_state):
+        print(f\"{self.name}: on_leave_default to\", name_next_state)
     def on_loop_default(self):
         print(f\"{self.name}: on_loop_default\")
 
@@ -82,8 +76,7 @@ class State:
     def check_transitions(self):
         for transition in self.transitions:
             if transition.guard():
-                self.on_leave()
-                transition.action()
+                self.on_leave(transition.destination.name)
                 return transition.destination
         return None
 
@@ -112,16 +105,16 @@ class StateMachine:
         if self.state is None:
             raise Exception(\"No initial state\")
         if not self.is_started:
-            self.state.on_enter()
+            self.state.on_enter(\"G2SSTART\")
             self.is_started = True
     
-    def check_transitions(self):
+    def step(self):
         if self.state is not None and self.is_started:
             self.state.on_loop()
             new_state = self.state.check_transitions()
             if new_state is not None:
                 if new_state != self.state:
-                    new_state.on_enter()
+                    new_state.on_enter(self.state.name)
                 self.state = new_state
     
     def __str__(self):

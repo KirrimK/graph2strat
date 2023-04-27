@@ -13,7 +13,7 @@ type statemachine =
 let st_str = fun st ->
   match st with
     State(id, on_enter_and_on_leave) -> Printf.sprintf "{[%s] %s}" id on_enter_and_on_leave
-  | Transition(id_ls, idb, guard_and_on_transition) -> Printf.sprintf "{[{%s} -> %s] %s}" (String.concat ", " id_ls) idb guard_and_on_transition;;
+  | Transition(id_ls, idb, guard) -> Printf.sprintf "{[{%s} -> %s] %s}" (String.concat ", " id_ls) idb guard;;
 
 let stm_str = fun stm ->
   match stm with
@@ -36,31 +36,13 @@ let statement_to_python = fun spacing st ->
                             | _ -> failwith (Printf.sprintf "incorrect format in st (expected type:func_name): %s" x)) 
           (String.split_on_char ';' on_enter_and_on_leave)) in
       Printf.sprintf "%sself.%s = State(\"%s\", %s)" spacing_str id id on_enter_and_on_leave_py
-  | Transition(id_ls, idb, guard_and_on_transition) ->
+  | Transition(id_ls, idb, guard) ->
       let full_name = String.concat "To" [(String.concat "" id_ls); idb] in
       let short_name = if String.length full_name > 30 then "tr" ^ (string_of_int (Hashtbl.hash (full_name))) else full_name in
-      let guard_and_transition_py = String.concat ", "
-          (List.map (fun x -> match String.split_on_char ':' x with
-                          | [a; b] when List.mem (String.trim a) ["action"; "guard"] ->
-                            Printf.sprintf "%s=self.parent.%s" (String.trim a) (String.trim b) 
-                          | [a; _] -> failwith (Printf.sprintf "incorrect format in tr (unknown type: %s): %s" (String.trim a) x)
-                          | [""] -> ""
-                          | _ -> failwith (Printf.sprintf "incorrect format in tr (expected type:func_name): %s" x)) 
-        (String.split_on_char ';' guard_and_on_transition)) in
-      let declaration = Printf.sprintf "%sself.%s = Transition(\"%s\", self.%s, %s)" spacing_str short_name short_name idb guard_and_transition_py in
+      let declaration = Printf.sprintf "%sself.%s = Transition(\"%s\", self.%s, %s)" spacing_str short_name short_name idb guard in
       let state_transition_register = String.concat "\n"
                                         (List.map (fun x -> Printf.sprintf "%sself.%s.add_transition(self.%s)" spacing_str x short_name) id_ls) in
       declaration ^ "\n" ^ state_transition_register
-      (* let full_name = String.concat "To" [(String.concat "" id_ls); idb] in
-      let short_name = if String.length full_name > 30 then "tr" ^ (string_of_int (Hashtbl.hash (full_name))) else full_name in
-      let declaration = match String.split_on_char '/' guard_and_on_transition with
-        [guard; on_transition] -> Printf.sprintf "%sself.%s = Transition(\"%s\", self.%s, self.parent.%s, self.parent.%s)" spacing_str short_name short_name idb guard on_transition
-      | [nope] when nope = "" -> Printf.sprintf "%sself.%s = Transition(\"%s\", self.%s)" spacing_str short_name short_name idb
-      | [on_transition] -> Printf.sprintf "%sself.%s = Transition(\"%s\", self.%s, self.parent.%s)" spacing_str short_name short_name idb on_transition
-      | _ -> (Printf.sprintf "Invalid Transition: Too much in transition %s" (st_str st)) in
-      let state_transition_register = String.concat "\n"
-                                        (List.map (fun x -> Printf.sprintf "%sself.%s.add_transition(self.%s)" spacing_str x short_name) id_ls) in
-      declaration ^ "\n" ^ state_transition_register *)
 
 let graph_to_python = fun spacing stm ->
   let StateMachine(init, name, st_ls) = stm in
