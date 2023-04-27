@@ -17,36 +17,34 @@ import typing
 # start of G2S machine
 class G2S:
     def __init__(self, parent: typing.Any, debug=False):
-        self.name = \"stm_Toggle\"
+        self.name = \"stm_SwitchThenLoop\"
         self.parent = parent
         self.debug = debug
         self.started = False
         self.Init = State(\"Init\", )
-        self.Toggle = State(\"Toggle\", )
-        self.InitToToggle = Transition(\"InitToToggle\", self.Toggle, )
-        self.Init.add_transition(self.InitToToggle)
-        self.ToggleToInit = Transition(\"ToggleToInit\", self.Init, )
-        self.Toggle.add_transition(self.ToggleToInit)
-        self.stm_Toggle = StateMachine(self.Init)
+        self.End = State(\"End\", )
+        self.InitToEnd = Transition(\"InitToEnd\", self.End, )
+        self.Init.add_transition(self.InitToEnd)
+        self.stm_SwitchThenLoop = StateMachine(self.Init)
 
     def __str__(self):
-        return \"G2S (\" +str(self.name) + \") machine, internals: \" + str(self.stm_Toggle)
+        return \"G2S (\" +str(self.name) + \") machine, internals: \" + str(self.stm_SwitchThenLoop)
 
     def start(self):
         if self.started:
             print(\"G2S (\", self.name ,\") machine is already running\")
             return
-        self.stm_Toggle.start()
+        self.stm_SwitchThenLoop.start()
         self.started = True
         if self.debug:
-            print(\"Started running G2S (\", self.name ,\") machine, state is\", self.stm_Toggle.state)
+            print(\"Started running G2S (\", self.name ,\") machine, state is\", self.stm_SwitchThenLoop.state)
     
     def check_transitions(self):
         if self.debug:
-            print(\">> Checking transitions, state is\", self.stm_Toggle.state)
+            print(\">> Checking transitions, state is\", self.stm_SwitchThenLoop.state)
         self.stm_Toggle.check_transitions()
         if self.debug:
-            print(\"<< Transitions checked, state is\", self.stm_Toggle.state)
+            print(\"<< Transitions checked, state is\", self.stm_SwitchThenLoop.state)
 " version lib;;
 
 (* Create a random folder name *)
@@ -90,8 +88,8 @@ class Parent:
 
 parent = Parent()
 stm = G2S(parent)
-stm.debug = True
 stm.start()
+stm.check_transitions()
 stm.check_transitions()
 stm.check_transitions()
 " (List.nth (String.split_on_char '.' compiled_filename) 0)
@@ -102,21 +100,13 @@ let () = close_out oc
 (* Expected stdout output *)
 let expected_stdout = 
 "Init: on_enter_default
-Started running G2S ( stm_Toggle ) machine, state is State(Init, [Transition(InitToToggle) ])
->> Checking transitions, state is State(Init, [Transition(InitToToggle) ])
 Init: on_loop_default
-InitToToggle: accept_by_default
+InitToEnd: accept_by_default
 Init: on_leave_default
-InitToToggle: nothing
-Toggle: on_enter_default
-<< Transitions checked, state is State(Toggle, [Transition(ToggleToInit) ])
->> Checking transitions, state is State(Toggle, [Transition(ToggleToInit) ])
-Toggle: on_loop_default
-ToggleToInit: accept_by_default
-Toggle: on_leave_default
-ToggleToInit: nothing
-Init: on_enter_default
-<< Transitions checked, state is State(Init, [Transition(InitToToggle) ])
+InitToEnd: nothing
+End: on_enter_default
+End: on_loop_default
+End: on_loop_default
 "
 
 (* Run python script *)

@@ -33,9 +33,3 @@ val statement_to_python : int -> statement -> string
     @return the python code for the statemachine
 *)
 val graph_to_python : int -> statemachine -> string
-
-(** Find functions names (enter/leave/on_transition/guard) mentionned in the statemachine 
-    @param statemachine the statemachine to parse
-    @return a list of (function name * is_guard)
-*)
-val find_functions : statemachine -> (string * bool) list

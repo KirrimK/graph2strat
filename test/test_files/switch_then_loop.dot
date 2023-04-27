@@ -1,0 +1,7 @@
+// Graph2strat test - Switch then loop
+// A simple state machine that switches from its init state to its end state, then runs the end loop function forever
+
+#init Init //the initial state is declared with the #init keyword
+digraph SwitchThenLoop {
+    Init -> End [label=""] // states are declared implicitly, and don't have on_enters / on_leaves
+}

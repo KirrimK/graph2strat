@@ -7,16 +7,16 @@
 
     ---
 
-    Transition(name: str, destination: State\[, on_transition: function\[, guard: function \]\]) -> Transition
+    Transition(name: str, destination: State\[, action: function\[, guard: function \]\]) -> Transition
 
     Create a transition to a State.
     Constructor arguments:
     - name: the name of the transition
     - destination: the destination State
-    - on_transition: a function that will be called when the transition is taken.
-        (on_transition() -> None, by default: does nothing)
+    - action: a function that will be called when the transition is taken.
+        (action -> None, by default: does nothing)
     - guard: a function that will be called to check if the transition can be taken.
-        (guard() -> bool, by default: always returns True)
+        (guard -> bool, by default: always returns True)
 
     ---
 
@@ -26,9 +26,11 @@
     Constructor arguments:
     - name: the name of the state
     - on_enter: a function that will be called when the state is entered.
-        (on_enter() -> None, by default: does nothing)
+        (on_enter -> None, by default: does nothing)
     - on_leave: a function that will be called when the state is left.
-        (on_leave() -> None, by default: does nothing)
+        (on_leave -> None, by default: does nothing)
+    - on_loop: a function that will be called repeatedly until the state is left.
+        (on_loop -> None, by default: does nothing)
     - transitions: a list of Transitions that can be taken from this state.
 
     ---
