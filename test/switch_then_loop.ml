@@ -56,8 +56,8 @@ let _ = Sys.command ("mkdir " ^ folder)
 (* Create a random file name *)
 let file = "test" ^ (string_of_int (Random.int 1000000)) ^ ".dot"
 
-(* Copy content of test_files/toggle.dot to random file *)
-let _ = Sys.command ("cp ./test_files/toggle.dot " ^ folder ^ "/" ^ file)
+(* Copy content of test_files/switch_then_loop.dot to random file *)
+let _ = Sys.command ("cp ./test_files/switch_then_loop.dot " ^ folder ^ "/" ^ file)
 
 (* Create a new graph from the random file *)
 let input = read_file (folder^"/"^file)
