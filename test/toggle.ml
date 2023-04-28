@@ -30,7 +30,7 @@ class G2S:
         self.stm_Toggle = StateMachine(self.Init)
 
     def __str__(self):
-        return \"G2S (\" +str(self.name) + \") machine, internals: \" + str(self.stm_Toggle)
+        return \"G2S (\" +str(self.name) + \") machine, started = \"+ str(self.started)+ \", internals: \" + str(self.stm_Toggle)
 
     def start(self):
         if self.started:
@@ -41,12 +41,12 @@ class G2S:
         if self.debug:
             print(\"Started running G2S (\", self.name ,\") machine, state is\", self.stm_Toggle.state)
     
-    def check_transitions(self):
+    def step(self):
         if self.debug:
-            print(\">> Checking transitions, state is\", self.stm_Toggle.state)
-        self.stm_Toggle.check_transitions()
+            print(\">> Stepping, state is\", self.stm_Toggle.state)
+        self.stm_Toggle.step()
         if self.debug:
-            print(\"<< Transitions checked, state is\", self.stm_Toggle.state)
+            print(\"<< Stepped, state is\", self.stm_Toggle.state)
 " version lib;;
 
 (* Create a random folder name *)
@@ -90,10 +90,9 @@ class Parent:
 
 parent = Parent()
 stm = G2S(parent)
-stm.debug = True
 stm.start()
-stm.check_transitions()
-stm.check_transitions()
+stm.step()
+stm.step()
 " (List.nth (String.split_on_char '.' compiled_filename) 0)
 let () = close_out oc
 
@@ -101,22 +100,15 @@ let () = close_out oc
 
 (* Expected stdout output *)
 let expected_stdout = 
-"Init: on_enter_default
-Started running G2S ( stm_Toggle ) machine, state is State(Init, [Transition(InitToToggle) ])
->> Checking transitions, state is State(Init, [Transition(InitToToggle) ])
+"Init: on_enter_default from G2SSTART
 Init: on_loop_default
 InitToToggle: accept_by_default
-Init: on_leave_default
-InitToToggle: nothing
-Toggle: on_enter_default
-<< Transitions checked, state is State(Toggle, [Transition(ToggleToInit) ])
->> Checking transitions, state is State(Toggle, [Transition(ToggleToInit) ])
+Init: on_leave_default to Toggle
+Toggle: on_enter_default from Init
 Toggle: on_loop_default
 ToggleToInit: accept_by_default
-Toggle: on_leave_default
-ToggleToInit: nothing
-Init: on_enter_default
-<< Transitions checked, state is State(Init, [Transition(InitToToggle) ])
+Toggle: on_leave_default to Init
+Init: on_enter_default from Toggle
 "
 
 (* Run python script *)

@@ -1,7 +1,7 @@
 open Utils;;
 open Importer;;
 open State_machine;;
-(* Toggle test code *)
+(* SwitchThenLoop test code *)
 
 Random.self_init ()
 
@@ -28,7 +28,7 @@ class G2S:
         self.stm_SwitchThenLoop = StateMachine(self.Init)
 
     def __str__(self):
-        return \"G2S (\" +str(self.name) + \") machine, internals: \" + str(self.stm_SwitchThenLoop)
+        return \"G2S (\" +str(self.name) + \") machine, started = \"+ str(self.started)+ \", internals: \" + str(self.stm_SwitchThenLoop)
 
     def start(self):
         if self.started:
@@ -39,12 +39,12 @@ class G2S:
         if self.debug:
             print(\"Started running G2S (\", self.name ,\") machine, state is\", self.stm_SwitchThenLoop.state)
     
-    def check_transitions(self):
+    def step(self):
         if self.debug:
-            print(\">> Checking transitions, state is\", self.stm_SwitchThenLoop.state)
-        self.stm_Toggle.check_transitions()
+            print(\">> Stepping, state is\", self.stm_SwitchThenLoop.state)
+        self.stm_SwitchThenLoop.step()
         if self.debug:
-            print(\"<< Transitions checked, state is\", self.stm_SwitchThenLoop.state)
+            print(\"<< Stepped, state is\", self.stm_SwitchThenLoop.state)
 " version lib;;
 
 (* Create a random folder name *)
@@ -57,7 +57,7 @@ let _ = Sys.command ("mkdir " ^ folder)
 let file = "test" ^ (string_of_int (Random.int 1000000)) ^ ".dot"
 
 (* Copy content of test_files/switch_then_loop.dot to random file *)
-let _ = Sys.command ("cp ./test_files/switch_then_loop.dot " ^ folder ^ "/" ^ file)
+let _ = Sys.command ("cp ./test_files/loop.dot " ^ folder ^ "/" ^ file)
 
 (* Create a new graph from the random file *)
 let input = read_file (folder^"/"^file)
@@ -89,9 +89,9 @@ class Parent:
 parent = Parent()
 stm = G2S(parent)
 stm.start()
-stm.check_transitions()
-stm.check_transitions()
-stm.check_transitions()
+stm.step()
+stm.step()
+stm.step()
 " (List.nth (String.split_on_char '.' compiled_filename) 0)
 let () = close_out oc
 
@@ -99,12 +99,11 @@ let () = close_out oc
 
 (* Expected stdout output *)
 let expected_stdout = 
-"Init: on_enter_default
+"Init: on_enter_default from G2SSTART
 Init: on_loop_default
 InitToEnd: accept_by_default
-Init: on_leave_default
-InitToEnd: nothing
-End: on_enter_default
+Init: on_leave_default to End
+End: on_enter_default from Init
 End: on_loop_default
 End: on_loop_default
 "
