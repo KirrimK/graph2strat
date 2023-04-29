@@ -14,6 +14,7 @@
     - name: the name of the transition
     - destination: the destination State
     - guard: a function that will be called to check if the transition can be taken (True to take, False to ignore).
+        param: local: object
         (guard -> bool, by default: always returns True)
 
     ---
@@ -24,13 +25,16 @@
     Constructor arguments:
     - name: the name of the state
     - on_enter: a function that will be called when the state is entered.
+        param: local: object
         param: name_previous_state: string
         (on_enter -> None, by default: does nothing)
         (on G2S start, on_enter will be called with name_previous_state = "G2SSTART")
     - on_leave: a function that will be called when the state is left.
+        param: local: object
         param: name_next_state: string
         (on_leave -> None, by default: does nothing)
     - on_loop: a function that will be called repeatedly until the state is left.
+        param: local: object
         (on_loop -> None, by default: does nothing)
     - transitions: a list of Transitions that can be taken from this state.
 

@@ -50,7 +50,7 @@ class G2S:
 " version lib;;
 
 (* Create a random folder name *)
-let folder = "/tmp/testg2s" ^ (string_of_int (Random.int 1000000))
+let folder = "/tmp/testg2s__toggle__" ^ (string_of_int (Random.int 1000000))
 
 (* Create folder *)
 let _ = Sys.command ("mkdir " ^ folder)

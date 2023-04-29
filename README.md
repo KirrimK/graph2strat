@@ -42,7 +42,7 @@ It will take files using this format:
 
 #init NameOfInitState //the initial state is declared with the #init keyword
 digraph STM_NAME { // the graph name is used as the name of the state machine (must start by a letter)
-    NameOfState [comment="enter:on_enter;leave:on_leave"] // This is a node, the on_enter and on_leave methods are declared in the comment
+    NameOfState [comment="enter:on_enter;leave:on_leave;loop:on_loop"] // This is a node, the on_enter and on_leave methods are declared in the comment
     NameOfInitState -> NameOfState [label="guard"] // This is a transition between states, the guard is declared in the label
     //comment
 }
@@ -54,11 +54,13 @@ from <name_of_generated_file> import G2S
 
 class Parent:
     # Write here the code for your parent object, it will be passed to the state machine
-    def on_enter(self):
+    def on_enter(self, local, name_previous_state: str) -> None:
         print("on_enter")
-    def on_leave(self):
+    def on_leave(self, local, name_next_state: str) -> None:
         print("on_leave")
-    def guard(self):
+    def on_loop(self, local) -> None:
+        print("on_loop")
+    def guard(self, local) -> bool:
         print("guard")
         return True
 
@@ -105,7 +107,7 @@ The on_enter function should have the following signature:
 ```python
 # in the parent object
 
-    def on_enter(self, name_previous_state: str) -> None:
+    def on_enter(self, local, name_previous_state: str) -> None:
         # do stuff
         pass
 
@@ -115,7 +117,7 @@ The on_leave function should have the following signature:
 ```python
 # in the parent object
 
-    def on_leave(self, name_next_state: str) -> None:
+    def on_leave(self, local, name_next_state: str) -> None:
         # do stuff
         pass
 
@@ -125,11 +127,14 @@ The on_loop function should have the following signature:
 ```python
 # in the parent object
 
-    def on_loop(self) -> None:
+    def on_loop(self, local) -> None:
         # do stuff
         pass
 
 ```
+
+The local variable is an object that you can use to stored temporary variables while being in a state:
+it is created when entering a state, destroyed when leaving it and passed to the loop and guard functions.
 
 ### Transitions
 
@@ -149,7 +154,7 @@ The guard is expected to have the following signature:
 ```python
 # in the parent object
 
-    def guard(self) -> bool:
+    def guard(self, local) -> bool:
         if <should_activate_transition>:
             return True
         else:
@@ -160,11 +165,11 @@ The guard is expected to have the following signature:
 ## Bugs/limits:
 
 Don't declare nodes with the same name but different caracteristics, it's a bad practice anyway.
+State names cannot be 1 character long.
 
-Extensive testing hasn't been done yet, check that the output seems to correspond to the input.
+Partial auto testing is done, but please check that the output seems to correspond to the input.
 If a bug is found, please file an issue on the github page.
 
 ## Project TODOs
 
 - improve error messages
-- improve testing

@@ -1,0 +1,7 @@
+// Graph2strat test - Local_test
+
+#init Init
+digraph Local_test {
+    Init [comment="enter:enter;leave:leave;loop:loop"]
+    Init -> Init [label="guard"]
+}

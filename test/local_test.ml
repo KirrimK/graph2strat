@@ -1,7 +1,7 @@
 open Utils;;
 open Importer;;
 open State_machine;;
-(* SwitchThenLoop test code *)
+(* Local state memory test code *)
 
 Random.self_init ()
 
@@ -17,38 +17,37 @@ import typing
 # start of G2S machine
 class G2S:
     def __init__(self, parent: typing.Any, debug=False):
-        self.name = \"stm_SwitchThenLoop\"
+        self.name = \"stm_Local_test\"
         self.parent = parent
         self.debug = debug
         self.started = False
-        self.Init = State(\"Init\", )
-        self.End = State(\"End\", )
-        self.InitToEnd = Transition(\"InitToEnd\", self.End, )
-        self.Init.add_transition(self.InitToEnd)
-        self.stm_SwitchThenLoop = StateMachine(self.Init)
+        self.Init = State(\"Init\", on_enter=self.parent.enter, on_leave=self.parent.leave, on_loop=self.parent.loop)
+        self.InitToInit = Transition(\"InitToInit\", self.Init, self.parent.guard)
+        self.Init.add_transition(self.InitToInit)
+        self.stm_Local_test = StateMachine(self.Init)
 
     def __str__(self):
-        return \"G2S (\" +str(self.name) + \") machine, started = \"+ str(self.started)+ \", internals: \" + str(self.stm_SwitchThenLoop)
+        return \"G2S (\" +str(self.name) + \") machine, started = \"+ str(self.started)+ \", internals: \" + str(self.stm_Local_test)
 
     def start(self):
         if self.started:
             print(\"G2S (\", self.name ,\") machine is already running\")
             return
-        self.stm_SwitchThenLoop.start()
+        self.stm_Local_test.start()
         self.started = True
         if self.debug:
-            print(\"Started running G2S (\", self.name ,\") machine, state is\", self.stm_SwitchThenLoop.state)
+            print(\"Started running G2S (\", self.name ,\") machine, state is\", self.stm_Local_test.state)
     
     def step(self):
         if self.debug:
-            print(\">> Stepping, state is\", self.stm_SwitchThenLoop.state)
-        self.stm_SwitchThenLoop.step()
+            print(\">> Stepping, state is\", self.stm_Local_test.state)
+        self.stm_Local_test.step()
         if self.debug:
-            print(\"<< Stepped, state is\", self.stm_SwitchThenLoop.state)
+            print(\"<< Stepped, state is\", self.stm_Local_test.state)
 " version lib;;
 
 (* Create a random folder name *)
-let folder = "/tmp/testg2s__switch_then_loop__" ^ (string_of_int (Random.int 1000000))
+let folder = "/tmp/testg2s__local_test__" ^ (string_of_int (Random.int 1000000))
 
 (* Create folder *)
 let _ = Sys.command ("mkdir " ^ folder)
@@ -57,7 +56,7 @@ let _ = Sys.command ("mkdir " ^ folder)
 let file = "test" ^ (string_of_int (Random.int 1000000)) ^ ".dot"
 
 (* Copy content of test_files/switch_then_loop.dot to random file *)
-let _ = Sys.command ("cp ./test_files/loop.dot " ^ folder ^ "/" ^ file)
+let _ = Sys.command ("cp ./test_files/local_test.dot " ^ folder ^ "/" ^ file)
 
 (* Create a new graph from the random file *)
 let input = read_file (folder^"/"^file)
@@ -85,10 +84,29 @@ from %s import G2S
 class Parent:
     def __init__(self):
         pass
+    def enter(self, local, previous_state_name):
+        local.origin = previous_state_name
+        local.counter = 0
+        local.destination = \"_\"
+        print(\"enter\", local.origin, local.counter, local.destination)
+    
+    def leave(self, local, next_state_name):
+        local.destination = next_state_name
+        print(\"leave\", local.origin, local.counter, local.destination)
+    
+    def loop(self, local):
+        local.counter += 1
+        print(\"loop\", local.origin, local.counter, local.destination)
+    
+    def guard(self, local):
+        print(\"guard\", local.origin, local.counter, local.destination)
+        return local.counter > 3
 
 parent = Parent()
 stm = G2S(parent)
 stm.start()
+stm.step()
+stm.step()
 stm.step()
 stm.step()
 stm.step()
@@ -99,13 +117,19 @@ let () = close_out oc
 
 (* Expected stdout output *)
 let expected_stdout = 
-"Init: on_enter_default from G2SSTART
-Init: on_loop_default
-InitToEnd: accept_by_default
-Init: on_leave_default to End
-End: on_enter_default from Init
-End: on_loop_default
-End: on_loop_default
+"enter G2SSTART 0 _
+loop G2SSTART 1 _
+guard G2SSTART 1 _
+loop G2SSTART 2 _
+guard G2SSTART 2 _
+loop G2SSTART 3 _
+guard G2SSTART 3 _
+loop G2SSTART 4 _
+guard G2SSTART 4 _
+leave G2SSTART 4 Init
+enter Init 0 _
+loop Init 1 _
+guard Init 1 _
 "
 
 (* Run python script *)

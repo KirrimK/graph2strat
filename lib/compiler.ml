@@ -39,7 +39,7 @@ let statement_to_python = fun spacing st ->
   | Transition(id_ls, idb, guard) ->
       let full_name = String.concat "To" [(String.concat "" id_ls); idb] in
       let short_name = if String.length full_name > 30 then "tr" ^ (string_of_int (Hashtbl.hash (full_name))) else full_name in
-      let declaration = Printf.sprintf "%sself.%s = Transition(\"%s\", self.%s, %s)" spacing_str short_name short_name idb guard in
+      let declaration = Printf.sprintf "%sself.%s = Transition(\"%s\", self.%s, %s)" spacing_str short_name short_name idb (if guard = "" then guard else "self.parent."^guard) in
       let state_transition_register = String.concat "\n"
                                         (List.map (fun x -> Printf.sprintf "%sself.%s.add_transition(self.%s)" spacing_str x short_name) id_ls) in
       declaration ^ "\n" ^ state_transition_register
