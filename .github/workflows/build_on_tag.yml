@@ -25,5 +25,5 @@ jobs:
       - name: Archive binary
         uses: actions/upload-artifact@v2
         with:
-          name: g2s-${{ github.ref_name }}"-unknown-linux-musl.x86_64
+          name: g2s-${{ github.ref_name }}-unknown-linux-musl.x86_64
           path: ./artifact/g2s.x86_64
