@@ -1,6 +1,7 @@
-(env (_ (env-vars (BUILD_TYPE opam))))
+(env (_ (env-vars (BUILD_TYPE github-static-musl))))
 
 (executable
+ (flags -ccopt -static)
  (public_name g2s)
  (name main)
  (libraries graph2strat)

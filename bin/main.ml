@@ -1,7 +1,9 @@
 open Importer;;
 open Utils;;
 
-let usage_msg = "Usage: g2s <dot_input_file> [-o <python_output_file>]"
+let build_type = [%getenv "BUILD_TYPE"];;
+
+let usage_msg = Printf.sprintf "Usage: %s <dot_input_file> [-o <python_output_file>]" Sys.argv.(0)
 let input_file = ref ""
 let output_dest = ref ""
 let speclist =
@@ -14,7 +16,7 @@ let anon_fun = fun filename->
 
 let () =
   Arg.parse speclist anon_fun usage_msg;
-  let () = Printf.printf "g2s by KirrimK@ENAC version %s\n" version in
+  let () = Printf.printf "Graph2strat by KirrimK version %s (Build type: %s)\n" version build_type in
   if !input_file = "" then
     Printf.printf "%s\n" usage_msg
   else

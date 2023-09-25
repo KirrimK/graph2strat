@@ -3,7 +3,7 @@
 
 (name graph2strat)
 
-(version 1.6.0)
+(version 1.6.1)
 
 (generate_opam_files true)
 
@@ -26,7 +26,8 @@
     ocaml
     dune
     (menhir (>= 2.1))
-    (dune-build-info (>= 3.5)))
+    (dune-build-info (>= 3.5))
+    (ppx_getenv (>= 2.1)))
  (tags
   (python dot statemachine)))
 

@@ -1,0 +1,28 @@
+name: Build on Tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+# get the docker.io/ocaml/opam:alpine-ocaml-4.08 image, run commands in it
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Build container
+        run: docker build -t g2sbuild .
+
+      - run: mkdir ./artifact
+
+      - name: Build static linked binary
+        run: docker run --rm -v ${PWD}/artifact:/statbuild g2sbuild
+      
+      - name: Archive binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: g2s-${{  github.ref_name }}"-unknown-linux-musl.x86_64
+          path: ./artifact/g2s.x86_64
