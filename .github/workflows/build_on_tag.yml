@@ -23,7 +23,7 @@ jobs:
         run: docker run --rm -v ${PWD}/artifact:/statbuild g2sbuild
       
       - name: Archive binary
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: g2s-${{ github.ref_name }}-unknown-linux-musl.x86_64
           path: ./artifact/g2s.x86_64
