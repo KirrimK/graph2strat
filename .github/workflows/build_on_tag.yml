@@ -17,6 +17,7 @@ jobs:
         run: docker build -t g2sbuild .
 
       - run: mkdir ./artifact
+      - run: chown $USER ./artifact
 
       - name: Build static linked binary
         run: docker run --rm -v ${PWD}/artifact:/statbuild g2sbuild
@@ -24,5 +25,5 @@ jobs:
       - name: Archive binary
         uses: actions/upload-artifact@v2
         with:
-          name: g2s-${{  github.ref_name }}"-unknown-linux-musl.x86_64
+          name: g2s-${{ github.ref_name }}"-unknown-linux-musl.x86_64
           path: ./artifact/g2s.x86_64
