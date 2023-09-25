@@ -8,7 +8,9 @@ Originally a tool for the ENACRobotique robotics club.
 
 ## Installation
 
-(Linux only)
+Until OCaml and Opam support Windows completely, this program is Linux only.
+
+### Via Opam
 Install ocaml and opam from your package manager.
 Then using opam, configure an additionnal repo:
 ```bash
@@ -20,6 +22,22 @@ opam update
 opam install graph2strat
 ```
 
+### Standalone release
+Download the latest executable from the [Releases page](https://github.com/KirrimK/graph2strat/releases).
+
+Place it in your desired directory, and make it executable: 
+```
+sudo chmod +x ./g2s-vx.x.x-github-musl.x86_64
+```
+
+You can now run it in a terminal:
+
+```
+$ ./g2s.vx.x.x-github-musl.x86_64
+Graph2strat by KirrimK version x.x.x (Build type: github-static-musl)
+Usage: ./g2s.vx.x.x-github-musl.x86_64 <dot_input_file> [-o <python_output_file>]
+```
+
 ## Build from source
 
 Clone this repo, then using opam, install the required dependencies: `dune`, `menhir`, `dune-build-info` (and `odoc` for the documentation).
@@ -27,7 +45,7 @@ Then run `dune build` to build the compiler.
 Run the build using `_build/default/bin/main.exe <input_file> [-o <output_file>]`.
 
 OCaml code documentation is at [https://kirrimk.github.io/graph2strat/](https://kirrimk.github.io/graph2strat/) and can be generated using `dune build @doc`.
-Automated tests (once added) can be run using `dune runtest`.
+Automated tests can be run using `dune runtest`.
 
 ## Usage
 
