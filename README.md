@@ -190,7 +190,3 @@ State names cannot be 1 character long.
 
 Partial auto testing is done, but please check that the output seems to correspond to the input.
 If a bug is found, please file an issue on the github page.
-
-## Project TODOs
-
-- improve error messages

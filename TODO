@@ -1,0 +1,4 @@
+[ ] deb package: fix buggy description
+[ ] deb package: make a useful manpage
+[ ] libgraph2strat: make errors simpler to understand
+[ ] make code maintainable by someone else
