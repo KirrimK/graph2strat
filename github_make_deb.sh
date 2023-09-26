@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# reference: https://www.baeldung.com/linux/create-debian-package
+
 mkdir -p graph2strat-static/DEBIAN
 mkdir graph2strat-static/bin
 cp ./artifact/g2s.x86_64 graph2strat-static/bin/g2s
