@@ -30,12 +30,15 @@ Place it in your desired directory, and make it executable:
 sudo chmod +x ./g2s-vx.x.x-github-musl.x86_64
 ```
 
-You can now run it in a terminal:
+### Debian / Ubuntu package
 
+A .deb package built from the statically-built executable is made available for the sake of convenience.
+
+Download the latest .deb package from the [Releases page](https://github.com/KirrimK/graph2strat/releases).
+
+Install it using `dpkg`:
 ```
-$ ./g2s.vx.x.x-github-musl.x86_64
-Graph2strat by KirrimK version x.x.x (Build type: github-static-musl)
-Usage: ./g2s.vx.x.x-github-musl.x86_64 <dot_input_file> [-o <python_output_file>]
+sudo dpkg -i graph2strat-static-x.x.x.deb
 ```
 
 ## Build from source
@@ -49,7 +52,7 @@ Automated tests can be run using `dune runtest`.
 
 ## Usage
 
-If you installed the compiler using opam, you can run it using `g2s <dot_input_file> [-o <python_output_file>]`.
+Run the program using `g2s <dot_input_file> [-o <python_output_file>]` (or whatever the name of your executable is, if downloaded as binary from the github releases page).
 This will generate a file named `<dot_input_file>_g2s.py` containing the generated python file in the current folder.
 
 You can also specify the output file using the '-o' option.

@@ -1,0 +1,24 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" (C) Copyright 2022-2023 Rémy B. <KirrimK@users.noreply.github.com>
+.\"
+.TH G2S 1 
+.SH NAME
+g2s \- graph2strat
+.SH SYNOPSIS
+.B g2s <dot_input_file> [-o <python_output_file>]
+.SH DESCRIPTION
+The 
+.B g2s 
+program reads the content of a dot file containing the description of a strategy and outputs a python file containing the corresponding state machine.
+
+.SH EXAMPLES
+
+(TBD)
+
+.SH AUTHORS
+The
+.B graph2strat 
+project was written by 
+Rémy B. <KirrimK@users.noreply.github.com>
+.PP
+This document was written by Rémy B. <KirrimK@users.noreply.github.com>.

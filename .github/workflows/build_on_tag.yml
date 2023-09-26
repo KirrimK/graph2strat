@@ -27,3 +27,12 @@ jobs:
         with:
           name: g2s-${{ github.ref_name }}-unknown-linux-musl.x86_64
           path: ./artifact/g2s.x86_64
+      
+      - name: Build .deb package
+        run: ./github_make_deb.sh
+
+      - name: Archive .deb package
+        uses: actions/upload-artifact@v3
+        with:
+          name: graph2strat-static-${{ github.ref_name }}.deb
+          path: ./graph2strat-static.deb

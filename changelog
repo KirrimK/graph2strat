@@ -1,0 +1,6 @@
+graph2strat-static (1.6.1) stable; urgency=low
+
+  [ Rémy B. ]
+  * Creation of .deb package
+
+ -- Rémy B. <KirrimK@users.noreply.github.com>  Tue, 26 Sep 2023 01:30:54 +0200
