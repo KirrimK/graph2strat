@@ -27,6 +27,9 @@ jobs:
         with:
           name: g2s-${{ github.ref_name }}-unknown-linux-musl.x86_64
           path: ./artifact/g2s.x86_64
+
+      - name: Install lintian on runner
+        run: sudo apt install lintian
       
       - name: Build .deb package
         run: sudo ./github_make_deb.sh
