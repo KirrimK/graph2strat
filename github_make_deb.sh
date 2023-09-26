@@ -5,7 +5,6 @@
 mkdir -p graph2strat-static/DEBIAN
 mkdir graph2strat-static/bin
 cp ./artifact/g2s.x86_64 graph2strat-static/bin/g2s
-strip graph2strat-static/bin/g2s
 cp control graph2strat-static/DEBIAN/control
 
 mkdir -p graph2strat-static/usr/share/doc/graph2strat-static

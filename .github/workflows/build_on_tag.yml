@@ -25,7 +25,16 @@ jobs:
       - name: Archive binary
         uses: actions/upload-artifact@v3
         with:
-          name: g2s-${{ github.ref_name }}-unknown-linux-musl.x86_64
+          name: g2s-${{ github.ref_name }}-github-musl.x86_64
+          path: ./artifact/g2s.x86_64
+
+      - name: Strip binary
+        run: sudo strip ./artifact/g2s.x86_64
+
+      - name: Archive stripped binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: g2s-${{ github.ref_name }}-github-musl-stripped.x86_64
           path: ./artifact/g2s.x86_64
 
       - name: Install lintian on runner
