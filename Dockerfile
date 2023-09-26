@@ -9,7 +9,7 @@ RUN sudo chown -R opam /home/opam/graph2strat
 
 WORKDIR /home/opam/graph2strat
 
-RUN opam install -y . --deps-only --locked
+RUN opam install -y . --deps-only
 
 RUN sudo chmod +x ./build_export.sh
 
