@@ -25,6 +25,8 @@ chmod 0755 graph2strat-static/usr/share
 chmod 0755 graph2strat-static/usr/share/doc
 chmod 0755 graph2strat-static/usr/share/doc/graph2strat-static
 
+chmod 0755 graph2strat-static/bin/g2s
+
 chmod 0755 graph2strat-static/usr/share/man
 chmod 0755 graph2strat-static/usr/share/man/man1
 
