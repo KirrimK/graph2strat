@@ -1,3 +1,10 @@
+graph2strat-static (1.6.2) stable; urgency=low
+
+  [ Rémy B. ]
+  * Fix package description
+
+  -- Rémy B. <KirrimK@users.noreply.github.com> Fri, 29 Sep 2023 17:18:19 +0200
+
 graph2strat-static (1.6.1) stable; urgency=low
 
   [ Rémy B. ]

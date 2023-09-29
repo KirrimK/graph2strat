@@ -1,8 +1,8 @@
 Package: graph2strat-static
-Version: 1.6.1
+Version: 1.6.2
 Section: utils
 Priority: optional
 Architecture: amd64
-Maintainer: KirrimK <KirrimK@users.noreply.github.com>
-Description: Graph2strat is a tool designed
- to make development of statemachines for robot strategy easier
+Maintainer: Rémy B. <KirrimK@users.noreply.github.com>
+Description: Dot graph conversion to Python state machine
+ Graph2strat is a tool designed to make development of statemachines for robot strategy easier
