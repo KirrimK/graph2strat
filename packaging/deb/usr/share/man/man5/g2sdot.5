@@ -1,0 +1,124 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" (C) Copyright 2022-2023 Rémy B. <KirrimK@users.noreply.github.com>
+.\"
+
+.de SAMPLE
+.br
+.nr saveIN \\n(.i   \" double the backslash when defining a macro
+.RS
+.nf
+.nh
+..
+.de ESAMPLE
+.hy
+.fi
+.RE
+.in \\n[saveIN]u    \" 'u' means 'units': do not scale this number 
+..
+
+.TH G2SDOT 5 
+.SH NAME
+g2sdot \- graph2strat dot subset file syntax
+.SH DESCRIPTION
+The
+.BR g2s 
+program reads the content of a dot file containing the description of a strategy and outputs a python file containing the corresponding state machine.
+
+The syntax used in the program is a subset of the dot graph description language, allowing visualisation of the state machine using the dot program.
+
+.SH STRUCTURE
+
+The file is composed of a header (optional) and a body.
+
+Comments can be written anywhere in the file using the following syntax:
+
+.SAMPLE
+// This is a comment and the rest of the line is ignored
+.ESAMPLE
+
+.SS Header
+
+The header (if present) should be the following line:
+
+.SAMPLE
+#init <name_of_initial_state>
+.ESAMPLE
+
+This defines the initial state of the state machine.
+If not present, the state machine will not have an initial state and will not start before an initial state is set by the program using it.
+
+.SS Body
+
+The body's structure is close to the description of a digraph in dot:
+
+.SAMPLE
+digraph <name_of_the_state_machine {
+    <state_description> | <transition_description>
+    ...
+}
+.ESAMPLE
+
+Each line inside the digraph declaration can be either a state description or a transition description.
+
+.SS State description
+
+The state description syntax is the following:
+
+.SAMPLE
+<state_name> [comment="<event_type>:<function_name_in_code>;..."]
+.ESAMPLE
+
+State names must be unique, more than 1 character long and must not contain spaces. Only characters a-zA-Z0-9 and "_" are allowed.
+
+The three accepted event types are:
+
+.BR enter 
+(the function is called when entering the state)
+
+.BR leave
+(the function is called when leaving the state)
+
+.BR loop
+(the function will be called repeatedly while in the state and at least once)
+
+Any other event type will raise an error during processing.
+
+.SS Transition description
+
+The transition description syntax is the following:
+
+.SAMPLE
+<state_name_a> -> <state_name_b> [label="optional_guard_function_name"]
+
+or
+
+{<state_name_a> <state_name_b> ...} -> <state_name_c> [label="optional_guard_function_name"]
+.ESAMPLE
+
+Any state declared as part of a transition will be declared implicitly if not mentioned anywhere else in the file. It will not do anything special.
+
+If not guard is to be set on a transition, simply leave the label empty: [label=""].
+
+.SH EXAMPLES
+
+This simple example of a toggle switch demonstrates the syntax in use:
+
+.SAMPLE
+#init Init //the initial state is declared with the #init keyword
+digraph Toggle {
+    Init -> Toggle [label=""] // Toggle is declared implicitly here, and doesn't handle any events
+    Toggle -> Init [label="my_guard_function"] // this transition doesn't have a guard
+    Init [comment="enter:my_enter_function;leave:my_leave_function"] // this state has enter and leave functions
+}
+.ESAMPLE
+
+.SH AUTHORS
+The
+.BR graph2strat 
+project was created by Rémy B. <KirrimK@users.noreply.github.com>.
+
+.SH SEE ALSO
+.BR g2s (1)
+for the command line use of the graph2strat program and
+.BR g2spython (7)
+to get documentation about usage of the generated python files.

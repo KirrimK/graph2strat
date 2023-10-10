@@ -5,20 +5,35 @@
 .SH NAME
 g2s \- graph2strat
 .SH SYNOPSIS
-.B g2s <dot_input_file> [-o <python_output_file>]
+.B g2s
+<dot_input_file> [-o <python_output_file>]
 .SH DESCRIPTION
-The 
-.B g2s 
+The
+.BR g2s 
 program reads the content of a dot file containing the description of a strategy and outputs a python file containing the corresponding state machine.
+
+By default, the name of the output file is the name of the input file with the extension replaced by "_g2s.py".
+
+.SH OPTIONS
+
+.TP
+.B -o <python_output_file>
+Specifies the name of the output file.
 
 .SH EXAMPLES
 
-(TBD)
+g2s example.dot -o example.py
+
+g2s example.dot (will generate a file called example_g2s.py)
+
 
 .SH AUTHORS
 The
 .B graph2strat 
-project was written by 
-Rémy B. <KirrimK@users.noreply.github.com>
-.PP
-This document was written by Rémy B. <KirrimK@users.noreply.github.com>.
+project was created by Rémy B. <KirrimK@users.noreply.github.com>.
+
+.SH SEE ALSO
+.BR g2sdot (5)
+for the complete syntax of the dot files used and
+.BR g2spython (7)
+to get documentation about usage of the generated python files.

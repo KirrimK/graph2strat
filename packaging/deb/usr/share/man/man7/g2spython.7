@@ -1,0 +1,126 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" (C) Copyright 2022-2023 Rémy B. <KirrimK@users.noreply.github.com>
+.\"
+
+.de SAMPLE
+.br
+.nr saveIN \\n(.i   \" double the backslash when defining a macro
+.RS
+.nf
+.nh
+..
+.de ESAMPLE
+.hy
+.fi
+.RE
+.in \\n[saveIN]u    \" 'u' means 'units': do not scale this number 
+..
+
+.TH G2SPYTHON 7 
+.SH NAME
+g2spython \- usage of graph2strat-generated files in python code
+.SH DESCRIPTION
+The
+.BR g2s 
+program reads the content of a dot file containing the description of a strategy and outputs a python file containing the corresponding state machine.
+
+This page aims at explaining how to use the generated files in python code, following an example statemachine as described:
+
+.SAMPLE
+#init Init
+digraph Local_test {
+    Init [comment="enter:enter_init;leave:leave_init;loop:loop_init"]
+    Init -> End [label="guard"]
+}
+.ESAMPLE
+
+.SH PYTHON USAGE
+
+In a python file, start by importing the G2S object (containing the statemachine) the generated file:
+
+.SAMPLE
+from <name_of_generated_file> import G2S
+.ESAMPLE
+
+Then create a class of your choosing containing the functions mentioned in your dot file:
+
+.SAMPLE
+class <name_of_class>:
+    def enter_init(self, local, name_previous_state: str) -> None:
+        <code that runs when entering the Init state>
+    def leave_init(self, local, name_next_state: str) -> None:
+        <code that runs when leaving the Init state>
+    def loop_init(self, local) -> None:
+        <code that repeats while in Init state>
+    def guard(self, local) -> bool:
+        return <should I make the jump to End or not>
+.ESAMPLE
+
+Then, instantiate your object, and the G2S object like this:
+
+.SAMPLE
+my_object = <name_of_class>()
+statemachine = G2S(my_object)
+.ESAMPLE
+
+Finally, when ready, start the statemachine and step when needed:
+
+.SAMPLE
+statemachine.start()
+...
+statemachine.step()
+.ESAMPLE
+
+.SH INTERNAL FUNCTIONING
+
+.SS Declaring state functions / guards
+
+The following signatures must be respected for state functions and guards:
+
+.SAMPLE
+...
+    def <enter_function>(self, local, name_previous_state: str) -> None:
+        <code>
+
+    def <leave_function>(self, local, name_next_state: str) -> None:
+        <code>
+
+    def <loop_function>(self, local) -> None:
+        <code>
+
+    def <guard_function>(self, local) -> bool:
+        <code>
+        return <enable transition or not>
+.ESAMPLE
+
+.SS Local object
+
+When entering a state, a special local object is created to let you store variables that should exist only during this state (the "local" function argument).
+All data stored here will persist until the state is left, and can be accessed in the loop, leave and guard functions.
+
+Use this to avoid multiplying class attributes that get reused by different states, or attributes that are only used once.
+
+.SS Starting
+
+Starting the statemachine runs the enter function of the init state and enables stepping.
+
+.SS Stepping
+
+Stepping means running the loop function of the current state once and checking is any transition from the current state can be activated by running each guard function until one returns True.
+If a valid transition is found, the leave function of the current state is run and the enter function of the new state is run.
+If not, the current state remains unchanged.
+
+.SH NOTES
+
+Please make sure that all functions referenced in the dot file are actually present in the python code, otherwise a runtime error will be raised and the program may stop unpredictably.
+
+.SH AUTHORS
+The
+.BR graph2strat 
+project was created by Rémy B. <KirrimK@users.noreply.github.com>.
+
+.SH SEE ALSO
+.BR g2s (1)
+for the command line use of the graph2strat program and
+.BR g2sdot (5)
+for the complete syntax of the dot files used.
