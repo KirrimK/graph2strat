@@ -20,7 +20,7 @@ jobs:
       - run: chown $USER ./artifact
 
       - name: Build static linked binary
-        run: docker run --rm -v ${PWD}/artifact:/statbuild g2sbuild
+        run: docker run --rm -v ${PWD}/artifact:/artifact g2sbuild
       
       - name: Archive binary
         uses: actions/upload-artifact@v3
@@ -41,7 +41,7 @@ jobs:
         run: sudo apt install lintian -y
       
       - name: Build .deb package
-        run: sudo ./github_make_deb.sh
+        run: sudo ./packaging/scripts/make_deb.sh
 
       - name: Archive .deb package
         uses: actions/upload-artifact@v3

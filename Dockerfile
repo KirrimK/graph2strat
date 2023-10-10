@@ -13,4 +13,4 @@ RUN opam install -y . --deps-only
 
 RUN sudo chmod +x ./packaging/scripts/build_export.sh
 
-CMD ["sh", "-c", "./packaging/scripts/build_export.sh"]
+CMD ["bash", "-c", "./packaging/scripts/build_export.sh"]
