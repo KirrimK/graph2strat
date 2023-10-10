@@ -11,6 +11,6 @@ WORKDIR /home/opam/graph2strat
 
 RUN opam install -y . --deps-only
 
-RUN sudo chmod +x ./build_export.sh
+RUN sudo chmod +x ./packaging/scripts/build_export.sh
 
-CMD ["sh", "-c", "./build_export.sh"]
+CMD ["sh", "-c", "./packaging/scripts/build_export.sh"]
