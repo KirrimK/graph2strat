@@ -18,18 +18,12 @@ cp $REPO_ROOT/LICENSE $REPO_ROOT/graph2strat-static/usr/share/doc/graph2strat-st
 
 gzip --best -n $REPO_ROOT/graph2strat-static/usr/share/doc/graph2strat-static/changelog
 
-gzip --best -n $REPO_ROOT/graph2strat-static/usr/share/man/man1/g2s.1
+gzip --best -n $REPO_ROOT/graph2strat-static/usr/share/man/*/*
 
-chmod 0755 $REPO_ROOT/graph2strat-static/bin
-#chmod 0755 $DEB_FOLDER/usr
-#chmod 0755 $DEB_FOLDER/usr/share
-#chmod 0755 $DEB_FOLDER/usr/share/doc
-#chmod 0755 $DEB_FOLDER/usr/share/doc/graph2strat-static
-
-chmod 0755 $REPO_ROOT/graph2strat-static/bin/g2s
-
-#chmod 0755 $DEB_FOLDER/usr/share/man
-#chmod 0755 $DEB_FOLDER/usr/share/man/man1
+chmod 0755 $REPO_ROOT/graph2strat-static/*
+chmod 0755 $REPO_ROOT/graph2strat-static/*/*
+chmod 0755 $REPO_ROOT/graph2strat-static/*/*/*
+chmod 0755 $REPO_ROOT/graph2strat-static/*/*/*/*
 
 chmod 0644 $REPO_ROOT/graph2strat-static/usr/share/doc/graph2strat-static/*
 chmod 0644 $REPO_ROOT/graph2strat-static/usr/share/man/*/*
