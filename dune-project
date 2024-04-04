@@ -3,7 +3,7 @@
 
 (name graph2strat)
 
-(version 1.6.3)
+(version 1.6.3.1)
 
 (generate_opam_files true)
 

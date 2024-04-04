@@ -44,7 +44,7 @@ directory:
 	mkdir -m 0755 -p $(BUILD_DIR)/graph2strat-static/DEBIAN
 
 docker_opam:
-	@echo "Building docker container"
+	@echo "Building opam build container"
 	docker build ../.. -t g2s_build_opam
 
 docker_deb:

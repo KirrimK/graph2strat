@@ -1,3 +1,12 @@
+graph2strat-static (1.6.3.1) stable; urgency=low
+
+  [ Rémy B. ]
+  * Removed html docs from source code
+  * Reworked deb packaging process
+  * Reworked github action
+
+ -- Rémy B. <KirrimK@users.noreply.github.com>  Thu, 04 Apr 2024 22:11:55 +0200
+
 graph2strat-static (1.6.3) stable; urgency=low
 
   [ Rémy B. ]
