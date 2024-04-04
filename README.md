@@ -20,14 +20,6 @@ opam update
 opam install graph2strat
 ```
 
-### Standalone release
-Download the latest executable from the [Releases page](https://github.com/KirrimK/graph2strat/releases).
-
-Place it in your desired directory, and make it executable: 
-```
-sudo chmod +x ./g2s-vx.x.x-github-musl.x86_64
-```
-
 ### Debian / Ubuntu package
 
 A .deb package built from the statically-built executable is made available for the sake of convenience.
