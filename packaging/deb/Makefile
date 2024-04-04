@@ -1,6 +1,6 @@
 # run this makefile from graph2strat/packaging/deb
 
-BUILD_DIR := ../../_build/packaging/deb/
+BUILD_DIR := $$(readlink -f ../..)/_build/packaging/deb/
 
 deb: placefiles docker_deb
 	@echo "Finalising deb package"
@@ -53,5 +53,5 @@ docker_deb:
 
 dune: docker_opam
 	@echo "Compiling in alpine container using dune"
-	docker run --rm --user 1000:1000 -v ../../:/home/opam/graph2strat:z g2s_build_opam
+	docker run --rm --user 1000:1000 -v $$(readlink -f ../..):/home/opam/graph2strat:z g2s_build_opam
 	cp ../../_build/default/bin/main.exe ../../_build/default/bin/g2s
