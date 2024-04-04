@@ -15,7 +15,7 @@ jobs:
       - run: sudo chown -R $USER:$USER .
       
       - name: make deb package
-        run: cd packaging/deb && make
+        run: cd packaging/deb && sudo make
       
       - run: cd ../..
 
