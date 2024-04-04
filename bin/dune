@@ -1,4 +1,4 @@
-(env (_ (env-vars (BUILD_TYPE opam))))
+(env (_ (env-vars (BUILD_TYPE dynamic))))
 
 (executable
  (public_name g2s)

@@ -1,4 +1,4 @@
-(env (_ (env-vars (BUILD_TYPE github-static-musl))))
+(env (_ (env-vars (BUILD_TYPE musl-static))))
 
 (executable
  (flags -ccopt -static)

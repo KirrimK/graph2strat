@@ -5,46 +5,22 @@ on:
     tags:
       - '*'
 
-# get the docker.io/ocaml/opam:alpine-ocaml-4.08 image, run commands in it
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - run: sudo chown -R $USER:$USER .
       
-      - name: Build container
-        run: docker build -t g2sbuild .
-
-      - run: mkdir ./artifact
-      - run: chown $USER ./artifact
-
-      - name: Build static linked binary
-        run: docker run --rm -v ${PWD}/artifact:/artifact g2sbuild
+      - name: make deb package
+        run: cd packaging/deb && make
       
-      - name: Archive binary
-        uses: actions/upload-artifact@v3
-        with:
-          name: g2s-${{ github.ref_name }}-github-musl.x86_64
-          path: ./artifact/g2s.x86_64
-
-      - name: Strip binary
-        run: sudo strip ./artifact/g2s.x86_64
-
-      - name: Archive stripped binary
-        uses: actions/upload-artifact@v3
-        with:
-          name: g2s-${{ github.ref_name }}-github-musl-stripped.x86_64
-          path: ./artifact/g2s.x86_64
-
-      - name: Install lintian on runner
-        run: sudo apt install lintian -y
-      
-      - name: Build .deb package
-        run: sudo ./packaging/scripts/make_deb.sh
+      - run: cd ../..
 
       - name: Archive .deb package
         uses: actions/upload-artifact@v3
         with:
           name: graph2strat-static-${{ github.ref_name }}.deb
-          path: ./graph2strat-static.deb
+          path: ./_build/packaging/deb/graph2strat-static.deb

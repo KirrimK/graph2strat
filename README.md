@@ -45,7 +45,7 @@ Clone this repo, then using opam, install the required dependencies: `dune`, `me
 Then run `dune build` to build the compiler.
 Run the build using `_build/default/bin/main.exe <input_file> [-o <output_file>]`.
 
-OCaml code documentation is at [https://kirrimk.github.io/graph2strat/](https://kirrimk.github.io/graph2strat/) and can be generated using `dune build @doc`.
+OCaml code documentation can be generated using `dune build @doc`.
 Automated tests can be run using `dune runtest`.
 
 ## Usage
