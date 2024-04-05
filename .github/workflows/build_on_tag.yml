@@ -13,9 +13,6 @@ jobs:
         uses: actions/checkout@v2
 
       - run: sudo chown -R $USER:$USER .
-
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
       
       - name: make deb package
         run: cd packaging && sudo make deb
