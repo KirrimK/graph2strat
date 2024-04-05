@@ -1,6 +1,6 @@
 # run this makefile from graph2strat/packaging/deb
 
-BUILD_DIR := $$(readlink -f ..)/_build/packaging/deb/
+BUILD_DIR := ../_build/packaging/deb/
 
 
 deb: $(BUILD_DIR)/graph2strat-static.deb
