@@ -15,9 +15,9 @@ jobs:
       - run: sudo chown -R $USER:$USER .
       
       - name: make deb package
-        run: cd packaging/deb && sudo make
+        run: cd packaging && sudo make deb
       
-      - run: cd ../..
+      - run: cd ..
 
       - name: Archive .deb package
         uses: actions/upload-artifact@v3
