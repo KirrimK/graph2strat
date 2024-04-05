@@ -1,2 +1,3 @@
 - libgraph2strat: make errors simpler to understand
 - github actions: github pages for docs from dynamic building graph2strat/index.html
+- package to rpm
